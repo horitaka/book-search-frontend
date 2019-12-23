@@ -1,0 +1,54 @@
+ユーザー入力イベント
+
+・図書館の新規登録画面を開くボタン (保留)
+action:
+
+・図書館の新規登録画面を閉じるボタン (保留)
+action:
+
+
+・図書館登録時のフリーワード入力
+action: SEARCH_LIBRARY
+keyword:
+
+・図書館登録時の都道府県入力
+action: SEARCH_LIBRARY
+prefectural:
+
+・図書館登録時の市区町村入力
+action: SEARCH_LIBRARY
+city:
+
+・図書館追加ボタン
+action: ADD_LIBRARY
+libraryID:
+
+
+・図書館の削除ボタン
+action: DELETE_LIBRARY
+libraryID:
+
+・本の在庫の検索ボタン
+action: SEARCH_BOOK_STOCK
+keyword:
+
+
+非同期イベント
+
+・Google Book API
+action: REQUEST_BOOK_INFO
+keyword:
+
+action: RECEIVE_BOOK_INFO
+status:
+response:
+error
+
+・カーリルAPI
+action: REQUEST_BOOK_STOCK
+keyword:
+
+action: RECEIVE_BOOK_STOCK
+status:
+response:
+error

@@ -1,0 +1,21 @@
+loadLibraryList() : Array(object)
+loadPrefAndCityList() : Array(object)
+
+searchLibrary(prefectural: string, city: string) : Array(string)
+- loadLibraryList
+- filterLibraryList(prefectural: string, city: string) : Array(object)
+- loadUserLibraryIDList() : Array(string)
+- addFlag(libraryList: Array(object), userLibraryIDList: Array(string)) : Array(object)
+
+addUserLibraryID(libraryID: string) : void
+- loadUserLibraryIDList() : Array(string)
+- saveUserLibraryIDList(userLibraryIDList: Array(string)) : void
+
+deleteUserLibraryID(libraryID: string) : void
+- loadRegisteredLibraryIDList() : Array(string)
+- saveUserLibraryIDList(userLibraryIDList: Array(string)) : void
+
+
+searchBookStok(userLibraryIDList: Array(string), keyword: string): Array(object) 図書館ごとの在庫情報
+- fetchBookInfo(Url: string, keyword)
+  - fetch

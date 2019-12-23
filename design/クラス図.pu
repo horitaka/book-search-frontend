@@ -1,0 +1,33 @@
+@startuml
+
+class BookSearchFunction {
+
+}
+
+class GoogleApiAccess {
+
+}
+
+class OpenBDApiAccess {
+
+}
+
+class CalilApiAccess {
+
+}
+
+class ApiAccess {
+
+}
+
+Saga -- BookSearchFunction
+BookSearchFunction -- GoogleApiAccess
+  GoogleApiAccess -- ApiAccess
+BookSearchFunction -- OpenBDApiAccess
+  OpenBDApiAccess -- ApiAccess
+BookSearchFunction -- CalilApiAccess
+  CalilApiAccess -- ApiAccess
+BookSearchFunction -- LocalDBAccess
+
+
+@enduml
