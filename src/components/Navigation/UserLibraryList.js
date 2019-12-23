@@ -19,7 +19,7 @@ function UserLibraryList({libraryList, onDeleteClicked}) {
   }
 
   if (libraryList.length === 0) {
-    return (<Text>図書館が登録されていません</Text>)
+    return (<NoLibraryText>図書館が登録されていません</NoLibraryText>)
   }
 
   return (
@@ -51,6 +51,11 @@ UserLibraryList.propTypes = {
     })
   ).isRequired,
 }
+
+const NoLibraryText = styled(Text)`
+  flex: 0 0 auto;
+  margin: 10px 10px 10px 20px;
+`
 
 const LibraryList = styled(List)`
   flex: 0 0 auto;
