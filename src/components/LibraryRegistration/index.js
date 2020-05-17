@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import LibraryRegistrationPanel from './LibraryRegistrationPanel'
-import { addLibrary, searchLibrary, changeKeyword } from '../../../actions';
-import { getLibraryList } from '../../../selectors'
+import LibraryRegistration from './LibraryRegistration'
+import { addLibrary, searchLibrary, changeKeyword } from '../../actions';
+import { getLibraryList } from '../../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const LibraryRegistrationPanelContainer = connect(
+const LibraryRegistrationContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(LibraryRegistrationPanel)
+)(LibraryRegistration)
 
-export default LibraryRegistrationPanelContainer;
+export default LibraryRegistrationContainer;

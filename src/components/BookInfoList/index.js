@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import BookInfoList from './BookInfoList';
-import { getBookInfoList } from '../../../selectors'
+import { getBookInfoList } from '../../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   return {

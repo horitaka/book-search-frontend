@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
 import SearchBar from './SearchBar'
-import { searchBook } from '../../actions'
-import { getLibraryIDList } from '../../selectors'
+import { searchBook } from '../../../actions'
+import { getLibraryIDList } from '../../../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mergeProps = (stateProps, dispatchProps) => {
   const dispatch = dispatchProps.dispatch
   return {
-    onSearchClicked: (keyword) => dispatch(searchBook(keyword, stateProps.userLibraryIDList))
+    searchBook: (keyword) => dispatch(searchBook(keyword, stateProps.userLibraryIDList))
   }
 }
 

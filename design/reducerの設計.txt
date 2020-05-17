@@ -1,9 +1,0 @@
-function libraryRegistration(state, action) {
-  ...
-  return newState
-}
-
-function bookSearch(state, action) {
-  ...
-  return newState
-}

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import UserLibraryList from './UserLibraryList';
-import { deleteLibrary } from '../../actions'
+import { deleteLibrary } from '../../../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
