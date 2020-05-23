@@ -24,3 +24,13 @@ export const searchLibrary = async (prefecture) => {
   const libraries = await get(searchLibraryUrl)
   return libraries
 }
+
+export const searchBook = async (keyword, libraryIDList) => {
+  const apiUrl = config.api.url;
+  const keywordQuery = 'keyword=' + keyword;
+  const libraryIDListQuery = 'libraryIDList=' + libraryIDList.join(',');
+  const bookSearchUrl = apiUrl + '/books?' + keywordQuery + '&' + libraryIDListQuery;
+
+  const books = await get(bookSearchUrl);
+  return books;
+}

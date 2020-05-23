@@ -49,25 +49,6 @@ export default class BookSearchFunction {
     }
 
     this.localDB.saveArrayData(this.key, newUserLibraryList);
-
-  }
-
-  searchBook(keyword, libraryIDList) {
-    const serverUrl = process.env.REACT_APP_API_URL;
-    const keywordQuery = 'keyword=' + keyword;
-    const libraryIDListQuery = 'libraryIDList=' + libraryIDList.join(',')
-    const bookSearchUrl = serverUrl + '/books?' + keywordQuery + '&' + libraryIDListQuery;
-
-    return new Promise((resolve, reject) => {
-      this.api.fetchData(bookSearchUrl)
-        .then((result) => {
-          resolve(result)
-        })
-        .catch((error) => {
-          console.warn(error)
-          reject(error)
-        })
-    })
   }
 
 }
