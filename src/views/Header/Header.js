@@ -33,11 +33,12 @@ const useStyles = makeStyles(theme => createStyles({
 
 function AppHeader(props) {
   const { history, searchBook } = props
+  const textFieldElement = React.useRef(null);
   const classes = useStyles();
 
   const handleSearchClick = (event) => {
     event.preventDefault();
-    const keyword = event.target.value
+    const keyword = textFieldElement.current.value
     if (keyword !== '') {
       history.push('/book-search')
       searchBook(keyword)
@@ -52,7 +53,7 @@ function AppHeader(props) {
       </Grid>
 
       <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
-        <TextField variant="outlined" fullWidth color="secondary" placeholder="本を検索..." className={classes.textField} />
+        <TextField variant="outlined" fullWidth color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
       </Grid>
 
       <Grid container alignItems="stretch" item xs={1}>
