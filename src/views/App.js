@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import AppThemeProvider from './AppThemeProvider'
 import Header from './Header'

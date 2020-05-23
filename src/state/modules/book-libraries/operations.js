@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 
-import BookSearchFunction from '../../util/BookSearchFunction';
+import * as api from '../../util/api'
 import * as types from './types'
 import { searchLibrary, searchLibrarySuccess, searchLibraryFail, changeKeyword } from './actions'
 
@@ -11,10 +11,9 @@ export function* bookLibrariesSaga() {
 }
 
 function* searchLibrarySaga(action) {
-  const bookSearch = new BookSearchFunction();
   const prefecture = action.prefecture;
   try {
-    const libraryList = yield call(bookSearch.searchLibrary.bind(bookSearch), prefecture);
+    const libraryList = yield call(api.searchLibrary, prefecture);
     yield put(searchLibrarySuccess(libraryList))
   } catch (exception) {
     console.warn(exception)

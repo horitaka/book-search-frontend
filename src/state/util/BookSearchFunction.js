@@ -1,11 +1,9 @@
 import LocalDBAccess from './LocalDBAccess';
-import ApiAccess from './ApiAccess'
 
 export default class BookSearchFunction {
   constructor() {
     this.key = 'userLibraryList'
     this.localDB = new LocalDBAccess();
-    this.api = new ApiAccess();
   }
 
   initUserLibraryList() {
@@ -31,27 +29,10 @@ export default class BookSearchFunction {
     }
   }
 
-  searchLibrary(prefecture) {
-    const serverUrl = process.env.REACT_APP_API_URL;
-    const searchLibraryUrl = serverUrl + '/libraries?prefecture=' + prefecture;
-
-    return new Promise((resolve, reject) => {
-      this.api.fetchData(searchLibraryUrl)
-        .then((result) => {
-          resolve(result)
-        })
-        .catch((error) => {
-          console.warn(error)
-          reject(error)
-        })
-    })
-  }
-
-
   addUserLibrary(library) {
     let userLibraryList = this.localDB.loadArrayData(this.key);
 
-    if(userLibraryList.length > 0) {
+    if (userLibraryList.length > 0) {
       userLibraryList.push(library);
     } else {
       userLibraryList = [library]
@@ -63,7 +44,7 @@ export default class BookSearchFunction {
     let currentUserLibraryList = this.localDB.loadArrayData(this.key);
     let newUserLibraryList = [];
 
-    if(currentUserLibraryList.length > 0) {
+    if (currentUserLibraryList.length > 0) {
       newUserLibraryList = currentUserLibraryList.filter(library => library.libraryID !== libraryToDelete.libraryID)
     }
 
