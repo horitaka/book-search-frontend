@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import UserLibraryList from './UserLibraryList';
-
+import ShareButtons from './ShareButtons';
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
@@ -40,6 +40,7 @@ function Navigation(props) {
         <Button color="secondary" onClick={handleNewLibraryButtonClicked}>
           <Typography variant="h6" className={classes.linkButton}>図書館を登録</Typography>
         </Button>
+        <ShareButtons />
       </Grid >
     </Box>
   );

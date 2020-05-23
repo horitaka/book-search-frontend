@@ -6,7 +6,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
-import AppHeader from './Header/AppHeader'
+import Header from './Header/Header'
 import Navigation from './Navigation/Navigation'
 import AppRouter from './AppRouter';
 import Footer from './Footer/Footer'
@@ -20,13 +20,13 @@ const theme = createMuiTheme({
       // light: will be calculated from palette.primary.main,
       main: '#03A9F4',
       // dark: will be calculated from palette.primary.main,
-      contrastText: '#fafafa'
+      contrastText: '#ffffff'
     },
     secondary: {
       // light: will be calculated from palette.primary.main,
       main: '#FF80AB',
       // dark: will be calculated from palette.secondary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
+      contrastText: '#ffffff'
     },
   },
 });
@@ -67,7 +67,7 @@ function App() {
         <Grid className={classes.root} alignItems="stretch" container>
           <Toast />
           <Grid className={classes.header} container item xs={12}>
-            <AppHeader />
+            <Header />
           </Grid>
           <Grid className={classes.contents} container item xs={12}>
             <Grid container item xs={3} className={classes.navication}>
