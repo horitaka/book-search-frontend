@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-
+import AppThemeProvider from './AppThemeProvider'
 import Header from './Header'
 import Navigation from './Navigation/Navigation'
 import AppRouter from './AppRouter';
@@ -13,23 +13,6 @@ import Footer from './Footer/Footer'
 import { Toast } from './Toast';
 
 import './App.css'
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#03A9F4',
-      // dark: will be calculated from palette.primary.main,
-      contrastText: '#ffffff'
-    },
-    secondary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#FF80AB',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffffff'
-    },
-  },
-});
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
@@ -48,7 +31,7 @@ const useStyles = makeStyles(theme => createStyles({
     height: '100%',
     overflowY: 'scroll',
   },
-  navication: {
+  navigation: {
     height: '100%',
   },
   footer: {
@@ -62,7 +45,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <Router>
         <Grid className={classes.root} alignItems="stretch" container>
           <Toast />
@@ -70,7 +53,7 @@ function App() {
             <Header />
           </Grid>
           <Grid className={classes.contents} container item xs={12}>
-            <Grid container item xs={3} className={classes.navication}>
+            <Grid container item xs={3} className={classes.navigation}>
               <Navigation />
             </Grid>
             <Grid container item xs={9} className={classes.main}>
@@ -82,7 +65,7 @@ function App() {
           </Grid>
         </Grid>
       </Router>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
 

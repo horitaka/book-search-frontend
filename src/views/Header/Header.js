@@ -16,15 +16,18 @@ const useStyles = makeStyles(theme => createStyles({
   },
   img: {
     marginRight: theme.spacing(1),
-    height: '50px',
+    height: '40px',
     objectFit: 'contain'
   },
   textFieldContainer: {
-    minWidth: '300px'
+    minWidth: '300px',
   },
   textField: {
     background: theme.palette.secondary.contrastText,
     borderRadius: theme.spacing(1),
+    '& .MuiOutlinedInput-root': {
+      height: '100%',
+    }
   },
   button: {
     color: theme.palette.secondary.contrastText,
@@ -53,7 +56,7 @@ function AppHeader(props) {
       </Grid>
 
       <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
-        <TextField variant="outlined" fullWidth color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
+        <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
       </Grid>
 
       <Grid container alignItems="stretch" item xs={1}>
