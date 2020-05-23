@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -30,11 +31,17 @@ const useStyles = makeStyles(theme => createStyles({
   }
 }));
 
-function AppHeader() {
+function AppHeader(props) {
+  const { history, searchBook } = props
   const classes = useStyles();
 
-  const handleSearchClick = () => {
-
+  const handleSearchClick = (event) => {
+    event.preventDefault();
+    const keyword = event.target.value
+    if (keyword !== '') {
+      history.push('/book-search')
+      searchBook(keyword)
+    }
   }
 
   return (
@@ -65,4 +72,4 @@ function AppHeader() {
 //   font-weight: bold;
 // `
 
-export default AppHeader
+export default withRouter(AppHeader);

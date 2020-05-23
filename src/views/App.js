@@ -6,7 +6,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
-import Header from './Header/Header'
+import Header from './Header'
 import Navigation from './Navigation/Navigation'
 import AppRouter from './AppRouter';
 import Footer from './Footer/Footer'

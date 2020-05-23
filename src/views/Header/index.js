@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import SearchBar from './SearchBar'
-import { booksOperations } from '../../../state/modules/books'
-import { userBookLibrariesSelectors } from '../../../state/modules/user-book-libraries'
+import Header from './Header'
+import { booksOperations } from '../../state/modules/books'
+import { userBookLibrariesSelectors } from '../../state/modules/user-book-libraries'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -23,10 +23,10 @@ const mergeProps = (stateProps, dispatchProps) => {
   }
 }
 
-const SearchBarContainer = connect(
+const HeaderContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(SearchBar)
+)(Header)
 
-export default SearchBarContainer
+export default HeaderContainer
