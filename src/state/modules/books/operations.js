@@ -10,7 +10,7 @@ export function* booksSaga() {
   yield takeEvery(types.SEARCH_BOOK_REQUEST, searchBookSaga)
 }
 
-function* searchBookSaga(action) {
+export function* searchBookSaga(action) {
   const keyword = action.keyword;
   const libraryIDList = action.libraryIDList;
   try {

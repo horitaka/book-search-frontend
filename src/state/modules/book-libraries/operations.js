@@ -10,7 +10,7 @@ export function* bookLibrariesSaga() {
   yield takeEvery(types.SEARCH_LIBRARY_REQUEST, searchLibrarySaga);
 }
 
-function* searchLibrarySaga(action) {
+export function* searchLibrarySaga(action) {
   const prefecture = action.prefecture;
   try {
     const libraryList = yield call(api.searchLibrary, prefecture);
