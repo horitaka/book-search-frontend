@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import config from '../../config';
 
-const get = (url) => {
-  const headers = { 'Access-Control-Allow-Origin': '*' }
+const get = (url, params = {}) => {
+  // const headers = { 'Access-Control-Allow-Origin': '*' }
 
   return new Promise((resolve, reject) => {
-    axios.get(url, { headers: headers })
+    axios.get(url, { params: params })
       .then(response => {
         resolve(response.data)
       })
@@ -25,12 +25,24 @@ export const searchLibrary = async (prefecture) => {
   return libraries
 }
 
-export const searchBook = async (keyword, libraryIDList) => {
-  const apiUrl = config.api.url;
-  const keywordQuery = 'keyword=' + keyword;
-  const libraryIDListQuery = 'libraryIDList=' + libraryIDList.join(',');
-  const bookSearchUrl = apiUrl + '/books?' + keywordQuery + '&' + libraryIDListQuery;
+// export const searchBook = async (keyword, libraryIDList) => {
+//   const apiUrl = config.api.url;
+//   const keywordQuery = 'keyword=' + keyword;
+//   const libraryIDListQuery = 'libraryIDList=' + libraryIDList.join(',');
+//   const bookSearchUrl = apiUrl + '/books?' + keywordQuery + '&' + libraryIDListQuery;
 
-  const books = await get(bookSearchUrl);
+//   const books = await get(bookSearchUrl);
+//   return books;
+// }
+
+
+export const searchBook = async (keyword) => {
+  const apiUrl = config.api.url;
+  const params = {
+    keyword: keyword
+  }
+  const bookSearchUrl = apiUrl + '/books';
+
+  const books = await get(bookSearchUrl, params);
   return books;
 }

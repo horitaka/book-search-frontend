@@ -4,6 +4,19 @@ import BookSearchFunction from '../../util/BookSearchFunction';
 const bookSearchFunction = new BookSearchFunction();
 
 
+/*
+state
+
+books: {
+  isInitialState: boolean,
+  isSearching: boolean,
+  isSucceededSearch: boolean
+  items: Array
+}
+
+
+*/
+
 export default function bookSearch(state = bookSearchFunction.initBookSearch(), action) {
   switch (action.type) {
     case types.SEARCH_BOOK_REQUEST:
@@ -28,6 +41,15 @@ export default function bookSearch(state = bookSearchFunction.initBookSearch(), 
         isSearching: false,
         isSucceededSearch: false,
         bookInfoList: [],
+      }
+    case types.FETCH_BOOKS_REQUEST:
+      return {
+        ...state,
+      }
+    case types.FETCH_BOOKS_SUCCESS:
+      return {
+        ...state,
+        items: [...action.payload.items]
       }
     default:
       return state;

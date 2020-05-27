@@ -20,3 +20,18 @@ export function searchBookFail() {
     type: types.SEARCH_BOOK_FAIL,
   }
 }
+
+export function fetchBooks() {
+  return {
+    type: types.FETCH_BOOKS_REQUEST,
+  }
+}
+
+export function fetchBooksSuccess(bookItems) {
+  return {
+    type: types.FETCH_BOOKS_SUCCESS,
+    payload: {
+      items: bookItems,
+    }
+  }
+}
