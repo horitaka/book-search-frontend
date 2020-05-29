@@ -3,7 +3,8 @@ import { createSelector } from 'reselect'
 import { userBookLibrariesSelectors } from '../user-book-libraries'
 
 const bookInfoList = state => state.books.bookInfoList;
-
+const bookItems = state => state.books.items;
+const booksStocks = state => state.books.booksStocks;
 
 export const getBookInfoList = createSelector(
   [userBookLibrariesSelectors.userBookLibraries, bookInfoList],
@@ -22,5 +23,20 @@ export const getBookInfoList = createSelector(
       })
     })
     return newBookInfoList;
+  }
+)
+
+export const getBookItemsAndStocks = createSelector(
+  [bookItems, booksStocks],
+  (bookItems, booksStocks) => {
+
+    return booksStocks
+  }
+)
+
+export const getIsbns = createSelector(
+  bookItems,
+  bookItems => {
+    return bookItems.map(item => item.isbn)
   }
 )

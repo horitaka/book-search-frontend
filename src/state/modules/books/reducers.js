@@ -11,7 +11,8 @@ books: {
   isInitialState: boolean,
   isSearching: boolean,
   isSucceededSearch: boolean
-  items: Array
+  items: Array,
+  booksStocks: object
 }
 
 
@@ -24,6 +25,8 @@ export default function bookSearch(state = bookSearchFunction.initBookSearch(), 
         ...state,
         isInitialState: false,
         isSearching: true,
+        items: [],
+        booksStocks: {},
       }
     case types.SEARCH_BOOK_SUCCESS:
       return {
@@ -31,7 +34,6 @@ export default function bookSearch(state = bookSearchFunction.initBookSearch(), 
         isInitialState: false,
         isSearching: false,
         isSucceededSearch: true,
-        bookInfoList: action.bookInfoList,
       }
     case types.SEARCH_BOOK_FAIL:
       // Todo
@@ -40,7 +42,8 @@ export default function bookSearch(state = bookSearchFunction.initBookSearch(), 
         isInitialState: false,
         isSearching: false,
         isSucceededSearch: false,
-        bookInfoList: [],
+        items: [],
+        booksStocks: {},
       }
     case types.FETCH_BOOKS_REQUEST:
       return {
@@ -50,6 +53,11 @@ export default function bookSearch(state = bookSearchFunction.initBookSearch(), 
       return {
         ...state,
         items: [...action.payload.items]
+      }
+    case types.FETCH_BOOKS_STOCKS_SUCCESS:
+      return {
+        ...state,
+        booksStocks: { ...action.payload.booksStocks }
       }
     default:
       return state;

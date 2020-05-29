@@ -46,3 +46,15 @@ export const searchBook = async (keyword) => {
   const books = await get(bookSearchUrl, params);
   return books;
 }
+
+export const searchBooksStocks = async (isbns, libraryIds) => {
+  const apiUrl = config.api.url;
+  const params = {
+    isbns: isbns,
+    libraryIds: libraryIds,
+  }
+  const booksStocksSearchUrl = apiUrl + '/books-stocks';
+
+  const booksStocks = await get(booksStocksSearchUrl, params);
+  return booksStocks;
+}

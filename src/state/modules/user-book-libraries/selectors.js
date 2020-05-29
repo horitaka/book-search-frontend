@@ -3,13 +3,13 @@ import { createSelector } from 'reselect'
 export const userBookLibraries = state => state.userBookLibraries;
 
 
-export const getLibraryIDList = createSelector(
+export const getLibraryIds = createSelector(
   userBookLibraries,
   (userBookLibraries) => {
     // console.log(userBookLibraries)
-    const userLibraryIDList = userBookLibraries.map(userLibrary => {
+    const userLibraryIds = userBookLibraries.map(userLibrary => {
       return userLibrary.libraryID;
     })
-    return userLibraryIDList
+    return userLibraryIds
   }
 )

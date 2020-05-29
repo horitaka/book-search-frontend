@@ -1,17 +1,15 @@
 import * as types from './types'
 
-export function searchBook(keyword, libraryIDList) {
+export function searchBook(keyword) {
   return {
     type: types.SEARCH_BOOK_REQUEST,
     keyword: keyword,
-    libraryIDList: libraryIDList,
   }
 }
 
-export function searchBookSuccess(bookInfoList) {
+export function searchBookSuccess() {
   return {
     type: types.SEARCH_BOOK_SUCCESS,
-    bookInfoList: bookInfoList,
   }
 }
 
@@ -20,6 +18,7 @@ export function searchBookFail() {
     type: types.SEARCH_BOOK_FAIL,
   }
 }
+
 
 export function fetchBooks() {
   return {
@@ -32,6 +31,22 @@ export function fetchBooksSuccess(bookItems) {
     type: types.FETCH_BOOKS_SUCCESS,
     payload: {
       items: bookItems,
+    }
+  }
+}
+
+
+export function fetchBooksStocks() {
+  return {
+    type: types.FETCH_BOOKS_STOCKS_REQUEST
+  }
+}
+
+export function fetchBooksStocksSuccess(booksStocks) {
+  return {
+    type: types.FETCH_BOOKS_STOCKS_SUCCESS,
+    payload: {
+      booksStocks: booksStocks,
     }
   }
 }

@@ -21,8 +21,9 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function BookInfoList(props) {
-  const { bookInfoList, isSearching, isSucceededSearch } = props;
+  const { bookItemsAndStocks, isSearching, isSucceededSearch } = props;
   const classes = useStyles();
+  console.log(bookItemsAndStocks)
 
   if (isSearching) {
     return <Loading />
@@ -32,7 +33,7 @@ function BookInfoList(props) {
     return <Typography className={classes.errorText}>検索に失敗しました</Typography>
   }
 
-  if (bookInfoList.length === 0) {
+  if (bookItemsAndStocks.length === 0) {
     return <Typography className={classes.errorText}>検索結果が0件です</Typography>
   }
 
@@ -40,7 +41,7 @@ function BookInfoList(props) {
     <Grid container justify="center" alignItems="stretch" className={classes.root}>
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8}>
         <List>
-          {bookInfoList.map(bookInfo => (
+          {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.isbn}>
               <ListItem>
                 <BookInfo bookInfo={bookInfo} />
