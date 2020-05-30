@@ -35,7 +35,7 @@ function UserLibraryList({ libraryList, onDeleteClicked }) {
   return (
     <List>
       {libraryList.map(library => (
-        <ListItem key={library.libraryID}>
+        <ListItem key={library.libraryId}>
           <Grid container justify="flex-start" alignItems="center" spacing={2}>
             <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9}>
               <Link href={library.librarySiteUrl} target="_blank" rel="noreferrer noopener">{library.libraryName}</Link>
@@ -54,7 +54,7 @@ function UserLibraryList({ libraryList, onDeleteClicked }) {
 UserLibraryList.propTypes = {
   libraryList: PropTypes.arrayOf(
     PropTypes.shape({
-      libraryID: PropTypes.string.isRequired,
+      libraryId: PropTypes.string.isRequired,
       libraryName: PropTypes.string.isRequired,
       prefecture: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,

@@ -39,10 +39,10 @@ const BookLibraryStocks = (props) => {
   return (
     <List>
       {
-        bookInfo.stockByLibrary.map(stock => {
+        bookInfo.stocksByLibrary.map(stock => {
           const bookStockStatus = generateStockStatus(stock.isOwned, stock.canBeRend);
           return (
-            <ListItem key={stock.libraryID}>
+            <ListItem key={stock.libraryId}>
               <Grid container justify="flex-start" alignItems="center">
                 <Grid item xs={9}>
                   <Typography variant="body2">{stock.libraryName}</Typography>
@@ -92,9 +92,9 @@ BookInfo.propTypes = {
     title: PropTypes.string,
     authors: PropTypes.arrayOf(PropTypes.string),
     isbn: PropTypes.number.isRequired,
-    stockByLibrary: PropTypes.arrayOf(
+    stocksByLibrary: PropTypes.arrayOf(
       PropTypes.shape({
-        libraryID: PropTypes.string.isRequired,
+        libraryId: PropTypes.string.isRequired,
         libraryName: PropTypes.string.isRequired,
         bookRentalUrl: PropTypes.string.isRequired,
         isOwned: PropTypes.bool.isRequired,

@@ -20,15 +20,6 @@ export default class BookSearchFunction {
     }
   }
 
-  initBookSearch() {
-    return {
-      isInitialState: true,
-      isSearching: false,
-      isSucceededSearch: false,
-      bookInfoList: [],
-    }
-  }
-
   addUserLibrary(library) {
     let userLibraryList = this.localDB.loadArrayData(this.key);
 
@@ -45,7 +36,7 @@ export default class BookSearchFunction {
     let newUserLibraryList = [];
 
     if (currentUserLibraryList.length > 0) {
-      newUserLibraryList = currentUserLibraryList.filter(library => library.libraryID !== libraryToDelete.libraryID)
+      newUserLibraryList = currentUserLibraryList.filter(library => library.libraryId !== libraryToDelete.libraryId)
     }
 
     this.localDB.saveArrayData(this.key, newUserLibraryList);

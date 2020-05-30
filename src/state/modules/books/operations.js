@@ -19,8 +19,6 @@ export function* booksSaga() {
 export function* searchBookSaga(action) {
   const keyword = action.keyword;
   try {
-    // const bookInfoList = yield call(api.searchBook, keyword, libraryIDList);
-    // yield put(searchBookSuccess(bookInfoList))
     yield put(fetchBooks())
     const books = yield call(api.searchBook, keyword)
     yield put(fetchBooksSuccess(books))

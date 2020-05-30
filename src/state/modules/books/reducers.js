@@ -1,8 +1,4 @@
 import * as types from './types'
-import BookSearchFunction from '../../util/BookSearchFunction';
-
-const bookSearchFunction = new BookSearchFunction();
-
 
 /*
 state
@@ -14,11 +10,17 @@ books: {
   items: Array,
   booksStocks: object
 }
-
-
 */
 
-export default function bookSearch(state = bookSearchFunction.initBookSearch(), action) {
+const initialState = {
+  isInitialState: true,
+  isSearching: false,
+  isSucceededSearch: false,
+  items: [],
+  booksStocks: {},
+}
+
+export default function bookSearch(state = initialState, action) {
   switch (action.type) {
     case types.SEARCH_BOOK_REQUEST:
       return {

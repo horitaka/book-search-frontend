@@ -11,7 +11,7 @@ export default function userBookLibraries(state = bookSearchFunction.initUserLib
       return [...state, action.library];
     case types.DELETE_LIBRARY:
       bookSearchFunction.deleteUserLibrary(action.library);
-      return state.filter(library => library.libraryID !== action.library.libraryID);
+      return state.filter(library => library.libraryId !== action.library.libraryId);
     default:
       return state;
   }

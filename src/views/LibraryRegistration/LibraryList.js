@@ -34,7 +34,7 @@ function LibraryList(props) {
       <List>
         {libraryList.map(library => {
           return (
-            <ListItem key={library.libraryID}>
+            <ListItem key={library.libraryId}>
               <Grid container direction="row" justify="center" alignItems="center" >
                 <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9} className={classes.libraryItem}>
                   <Link href={library.librarySiteUrl} target="_blank" rel="noopener noreferrer">{library.libraryName}</Link>
@@ -71,7 +71,7 @@ function LibraryList(props) {
 LibraryList.propTypes = {
   libraryList: PropTypes.arrayOf(
     PropTypes.shape({
-      libraryID: PropTypes.string.isRequired,
+      libraryId: PropTypes.string.isRequired,
       libraryName: PropTypes.string.isRequired,
       prefecture: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,

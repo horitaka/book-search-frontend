@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => createStyles({
 function BookInfoList(props) {
   const { bookItemsAndStocks, isSearching, isSucceededSearch } = props;
   const classes = useStyles();
-  console.log(bookItemsAndStocks)
 
   if (isSearching) {
     return <Loading />
@@ -42,7 +41,7 @@ function BookInfoList(props) {
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8}>
         <List>
           {bookItemsAndStocks.map(bookInfo => (
-            <Box key={bookInfo.isbn}>
+            <Box key={bookInfo.title}>
               <ListItem>
                 <BookInfo bookInfo={bookInfo} />
               </ListItem>
@@ -63,7 +62,7 @@ function BookInfoList(props) {
 BookInfoList.propTypes = {
   isSearching: PropTypes.bool.isRequired,
   isSucceededSearch: PropTypes.bool.isRequired,
-  bookInfoList: PropTypes.arrayOf(BookInfo.propTypes.bookInfo).isRequired,
+  bookItemsAndStocks: PropTypes.arrayOf(BookInfo.propTypes.bookInfo).isRequired,
 }
 
 export default BookInfoList;
