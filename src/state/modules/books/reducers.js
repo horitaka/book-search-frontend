@@ -15,7 +15,8 @@ books: {
 const initialState = {
   isInitialState: true,
   isSearching: false,
-  isSucceededSearch: false,
+  isBooksStocksSearching: false,
+  isSucceededSearch: true,
   items: [],
   booksStocks: {},
 }
@@ -54,12 +55,25 @@ export default function bookSearch(state = initialState, action) {
     case types.FETCH_BOOKS_SUCCESS:
       return {
         ...state,
+        isSearching: false,
         items: [...action.payload.items]
+      }
+    case types.FETCH_BOOKS_STOCKS_REQUEST:
+      return {
+        ...state,
+        isBooksStocksSearching: true,
       }
     case types.FETCH_BOOKS_STOCKS_SUCCESS:
       return {
         ...state,
-        booksStocks: { ...action.payload.booksStocks }
+        booksStocks: { ...action.payload.booksStocks },
+        isBooksStocksSearching: false,
+      }
+    case types.FETCH_BOOKS_STOCKS_FAIL:
+      return {
+        ...state,
+        booksStocks: {},
+        isBooksStocksSearching: false,
       }
     default:
       return state;

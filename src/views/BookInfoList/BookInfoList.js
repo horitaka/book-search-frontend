@@ -21,8 +21,9 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isSearching, isSucceededSearch } = props;
+  const { bookItemsAndStocks, isSearching, isSucceededSearch, isBooksStocksSearching } = props;
   const classes = useStyles();
+  console.log(props)
 
   if (isSearching) {
     return <Loading />
@@ -43,7 +44,7 @@ function BookInfoList(props) {
           {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.title}>
               <ListItem>
-                <BookInfo bookInfo={bookInfo} />
+                <BookInfo bookInfo={bookInfo} isBooksStocksSearching={isBooksStocksSearching} />
               </ListItem>
               <Divider />
             </Box>

@@ -20,10 +20,12 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 const BookLibraryStocks = (props) => {
-  const { bookInfo } = props
-
+  const { bookInfo, isBooksStocksSearching } = props
   const generateStockStatus = (isOwned, canBeRend) => {
     let bookStockStatus = '';
+    if (isBooksStocksSearching) {
+      return '検索中'
+    }
     if (isOwned) {
       if (canBeRend) {
         bookStockStatus = '貸出可'
@@ -61,7 +63,8 @@ const BookLibraryStocks = (props) => {
   )
 }
 
-function BookInfo({ bookInfo }) {
+function BookInfo(props) {
+  const { bookInfo, isBooksStocksSearching } = props
   const classes = useStyles();
 
   return (
@@ -72,7 +75,7 @@ function BookInfo({ bookInfo }) {
       <Grid item xs={9}>
         <Typography variant="body1" className={classes.title}>{bookInfo.title}</Typography>
         <Typography variant="body2" >{Array.isArray(bookInfo.authors) && bookInfo.authors.join(', ')}</Typography>
-        <BookLibraryStocks bookInfo={bookInfo} />
+        <BookLibraryStocks bookInfo={bookInfo} isBooksStocksSearching={isBooksStocksSearching} />
         <Grid container justify="flex-start" spacing={1}>
           <Grid item xs={3}>
             <Button variant="contained" color="secondary" fullWidth>Amazon</Button>
