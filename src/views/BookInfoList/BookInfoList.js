@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
@@ -14,6 +14,8 @@ import Loading from './Loading'
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
+    height: '100%',
+    overflowY: 'scroll',
   },
   errorText: {
     margin: theme.spacing(3, 3, 3, 3)
@@ -21,9 +23,9 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isSearching, isSucceededSearch, isBooksStocksSearching } = props;
+  const { bookItemsAndStocks, isSearching, isSucceededSearch } = props;
   const classes = useStyles();
-  console.log(props)
+  const containerElement = useRef(null);
 
   if (isSearching) {
     return <Loading />
@@ -37,14 +39,22 @@ function BookInfoList(props) {
     return <Typography className={classes.errorText}>検索結果が0件です</Typography>
   }
 
+  const handleScroll = () => {
+    const bottomPosition = containerElement.current.scrollTop + containerElement.current.clientHeight;
+    const height = containerElement.current.scrollHeight;
+    if (bottomPosition >= height) {
+      console.log('bottom')
+    }
+  }
+
   return (
-    <Grid container justify="center" alignItems="stretch" className={classes.root}>
+    <Grid container justify="center" alignItems="stretch" ref={containerElement} onScroll={handleScroll} className={classes.root} >
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8}>
         <List>
           {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.title}>
               <ListItem>
-                <BookInfo bookInfo={bookInfo} isBooksStocksSearching={isBooksStocksSearching} />
+                <BookInfo bookInfo={bookInfo} />
               </ListItem>
               <Divider />
             </Box>

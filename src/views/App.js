@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => createStyles({
   },
   main: {
     height: '100%',
-    overflowY: 'scroll',
+    // overflowY: 'scroll',
   },
   navigation: {
     height: '100%',

@@ -7,7 +7,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     bookItemsAndStocks: booksSelectors.getBookItemsAndStocks(state),
     isSearching: state.books.isSearching,
-    isBooksStocksSearching: state.books.isBooksStocksSearching,
     isSucceededSearch: state.books.isSucceededSearch,
     isInitialState: state.books.isInitialState,
   };

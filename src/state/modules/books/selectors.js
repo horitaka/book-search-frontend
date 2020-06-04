@@ -2,29 +2,9 @@ import { createSelector } from 'reselect'
 
 import { userBookLibrariesSelectors } from '../user-book-libraries'
 
-const bookInfoList = state => state.books.bookInfoList;
 const bookItems = state => state.books.items;
 const booksStocks = state => state.books.booksStocks;
 
-export const getBookInfoList = createSelector(
-  [userBookLibrariesSelectors.userBookLibraries, bookInfoList],
-  (userBookLibraries, bookInfoList) => {
-    const newBookInfoList = bookInfoList.map(bookInfo => {
-
-      return ({
-        ...bookInfo,
-        stockByLibrary: bookInfo.stockByLibrary.map(stock => {
-          const libraryInfo = userBookLibraries.find(userLibrary => userLibrary.libraryId === stock.libraryId)
-          return {
-            ...stock,
-            ...libraryInfo,
-          }
-        })
-      })
-    })
-    return newBookInfoList;
-  }
-)
 
 export const getBookItemsAndStocks = createSelector(
   [bookItems, booksStocks, userBookLibrariesSelectors.userBookLibraries],
@@ -36,7 +16,8 @@ export const getBookItemsAndStocks = createSelector(
     let bookItemsAndStocks = bookItems.map(item => {
       let result = {
         ...item,
-        stocksByLibrary: getStocksByLibrary(item.isbn, booksStocks, userBookLibraries)
+        stocksByLibrary: getStocksByLibrary(item.isbn, booksStocks, userBookLibraries),
+        isBooksStocksFetched: getIsBooksStocksFetchd(item.isbn, booksStocks),
       }
       return result
     })
@@ -73,7 +54,7 @@ export const getStocksByLibrary = (isbn, booksStocks, userBookLibraries) => {
   }
 
   result = userBookLibraries.map(library => {
-    const libraryBooksStocks = booksStocks[isbn].find(stock => stock.libraryId === library.libraryId)
+    const libraryBooksStocks = booksStocks[isbn].items.find(stock => stock.libraryId === library.libraryId)
     return {
       ...library,
       ...libraryBooksStocks
@@ -81,6 +62,14 @@ export const getStocksByLibrary = (isbn, booksStocks, userBookLibraries) => {
   })
   return result
 
+}
+
+const getIsBooksStocksFetchd = (isbn, booksStocks) => {
+  if (!booksStocks[isbn] || !booksStocks[isbn]['isBooksStocksFetched']) {
+    return false
+  }
+
+  return booksStocks[isbn]['isBooksStocksFetched']
 }
 
 export const getIsbns = createSelector(

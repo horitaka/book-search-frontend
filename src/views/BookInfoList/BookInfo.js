@@ -20,10 +20,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 const BookLibraryStocks = (props) => {
-  const { bookInfo, isBooksStocksSearching } = props
+  const { bookInfo } = props
   const generateStockStatus = (isOwned, canBeRend) => {
     let bookStockStatus = '';
-    if (isBooksStocksSearching) {
+
+    if (bookInfo.isbn === 0) {
+      return '蔵書なし'
+    }
+    if (!bookInfo.isBooksStocksFetched) {
       return '検索中'
     }
     if (isOwned) {
@@ -64,7 +68,7 @@ const BookLibraryStocks = (props) => {
 }
 
 function BookInfo(props) {
-  const { bookInfo, isBooksStocksSearching } = props
+  const { bookInfo } = props
   const classes = useStyles();
 
   return (
@@ -75,7 +79,7 @@ function BookInfo(props) {
       <Grid item xs={9}>
         <Typography variant="body1" className={classes.title}>{bookInfo.title}</Typography>
         <Typography variant="body2" >{Array.isArray(bookInfo.authors) && bookInfo.authors.join(', ')}</Typography>
-        <BookLibraryStocks bookInfo={bookInfo} isBooksStocksSearching={isBooksStocksSearching} />
+        <BookLibraryStocks bookInfo={bookInfo} />
         <Grid container justify="flex-start" spacing={1}>
           <Grid item xs={3}>
             <Button variant="contained" color="secondary" fullWidth>Amazon</Button>
@@ -99,9 +103,9 @@ BookInfo.propTypes = {
       PropTypes.shape({
         libraryId: PropTypes.string.isRequired,
         libraryName: PropTypes.string.isRequired,
-        bookRentalUrl: PropTypes.string.isRequired,
-        isOwned: PropTypes.bool.isRequired,
-        canBeRend: PropTypes.bool.isRequired,
+        bookRentalUrl: PropTypes.string,
+        isOwned: PropTypes.bool,
+        canBeRend: PropTypes.bool,
       })
     ),
   }).isRequired

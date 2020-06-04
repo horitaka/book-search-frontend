@@ -7,15 +7,35 @@ books: {
   isInitialState: boolean,
   isSearching: boolean,
   isSucceededSearch: boolean
-  items: Array,
-  booksStocks: object
+  items: [{
+    authors: Array<string>,
+    imageUrl: string,
+    isbn: string,
+    title: string,
+  }, {
+    ...
+  }]
+  booksStocks: {
+    9784798056593: {
+      isSearching: boolean,
+      items:[{
+        libraryId: string, 
+        bookRentalUrl: string,
+        canBeRend: boolean,
+        isOwned: boolean,
+      }, {
+      ...
+      }]
+    }, {
+      ...
+    }
+  }
 }
 */
 
 const initialState = {
   isInitialState: true,
   isSearching: false,
-  isBooksStocksSearching: false,
   isSucceededSearch: true,
   items: [],
   booksStocks: {},
@@ -56,26 +76,50 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         isSearching: false,
-        items: [...action.payload.items]
+        items: [...action.payload.items],
+        booksStocks: initBooksStocks(action.payload.items)
       }
     case types.FETCH_BOOKS_STOCKS_REQUEST:
       return {
         ...state,
-        isBooksStocksSearching: true,
       }
     case types.FETCH_BOOKS_STOCKS_SUCCESS:
       return {
         ...state,
-        booksStocks: { ...action.payload.booksStocks },
-        isBooksStocksSearching: false,
+        booksStocks: {
+          isBooksStocksFetched: true,
+          ...setBooksStocks(state.booksStocks, action.payload.booksStocks)
+        },
       }
     case types.FETCH_BOOKS_STOCKS_FAIL:
       return {
         ...state,
         booksStocks: {},
-        isBooksStocksSearching: false,
       }
     default:
       return state;
   }
+}
+
+const initBooksStocks = (items) => {
+  let booksStocks = {}
+  items.forEach(item => {
+    if (item.isbn && item.isbn !== 0) {
+      booksStocks[item.isbn] = { isBooksStocksFetched: false, items: [] }
+    }
+  })
+  return booksStocks
+}
+
+
+const setBooksStocks = (currentBooksStocks, fetchedBooksStocks) => {
+  let newBooksStocks = { ...currentBooksStocks }
+
+  const isbns = Object.keys(fetchedBooksStocks)
+  isbns.forEach(isbn => {
+    newBooksStocks[isbn].items = fetchedBooksStocks[isbn];
+    newBooksStocks[isbn].isBooksStocksFetched = true;
+  });
+
+  return newBooksStocks
 }
