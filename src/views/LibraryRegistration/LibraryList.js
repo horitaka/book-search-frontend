@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { showToast } from '../Toast';
@@ -34,19 +36,22 @@ function LibraryList(props) {
       <List>
         {libraryList.map(library => {
           return (
-            <ListItem key={library.libraryId}>
-              <Grid container direction="row" justify="center" alignItems="center" >
-                <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9} className={classes.libraryItem}>
-                  <Link href={library.librarySiteUrl} target="_blank" rel="noopener noreferrer">{library.libraryName}</Link>
-                  <Typography variant="body2">{library.branches.join(', ')}</Typography>
+            <Box key={library.libraryId}>
+              <ListItem>
+                <Grid container direction="row" justify="center" alignItems="center" >
+                  <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9} className={classes.libraryItem}>
+                    <Link href={library.librarySiteUrl} target="_blank" rel="noopener noreferrer">{library.libraryName}</Link>
+                    <Typography variant="body2">{library.branches.join(', ')}</Typography>
+                  </Grid>
+                  <Grid container direction="column" justify="flex-start" alignItems="center" item xs={2}>
+                    {library.isRegistered
+                      ? <Button color="primary" variant="contained" size="large" fullWidth disabled>登録済み</Button>
+                      : <Button color="primary" variant="contained" size="large" fullWidth onClick={() => handleLibraryAddClick(library)}>登録</Button>}
+                  </Grid>
                 </Grid>
-                <Grid container direction="column" justify="flex-start" alignItems="center" item xs={2}>
-                  {library.isRegistered
-                    ? <Button color="primary" variant="contained" size="large" fullWidth disabled>登録済み</Button>
-                    : <Button color="primary" variant="contained" size="large" fullWidth onClick={() => handleLibraryAddClick(library)}>登録</Button>}
-                </Grid>
-              </Grid>
-            </ListItem>
+              </ListItem>
+              <Divider />
+            </Box>
           )
         })}
       </List>

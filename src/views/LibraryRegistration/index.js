@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLibraryAddClickd: (library) => dispatch(userBookLibrariesOperations.addLibrary(library)),
-    onPrefSelected: (prefecture) => dispatch(bookLibrariesOperations.searchLibrary(prefecture)),
+    searchLibrary: (prefecture) => dispatch(bookLibrariesOperations.searchLibrary(prefecture)),
     onKeywordChanged: (keyword) => dispatch(bookLibrariesOperations.changeKeyword(keyword))
   }
 }

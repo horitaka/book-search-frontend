@@ -61,7 +61,7 @@ function App() {
             <Grid container item xs={9} className={classes.main}>
               <Switch>
                 <Route path="/book-search" component={BookInfoList} />
-                <Route path="/library-registration" component={LibraryRegistration} />
+                <Route path="/libraries" component={LibraryRegistration} />
                 <Route path="/" component={ServiceIntroduction} />
               </Switch>
             </Grid>

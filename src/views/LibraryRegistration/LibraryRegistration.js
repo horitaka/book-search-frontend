@@ -19,14 +19,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function LibraryRegistration(props) {
-  const { isInitialState, isSucceededRegistration, libraryList, onLibraryAddClickd, onPrefSelected, onKeywordChanged } = props
+  const { isInitialState, isSucceededRegistration, libraryList, onLibraryAddClickd, searchLibrary, onKeywordChanged } = props
   const classes = useStyles();
 
   return (
     <Grid container direction="row" justify="center" alignItems="stretch" className={classes.root}>
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8} className={classes.header}>
         <LibrarySearch
-          onPrefSelected={onPrefSelected}
+          searchLibrary={searchLibrary}
           onKeywordChanged={onKeywordChanged}
         />
         <LibraryList
@@ -45,7 +45,7 @@ LibraryRegistration.propTypes = {
   isSucceededRegistration: PropTypes.bool.isRequired,
   libraryList: LibraryList.propTypes.libraryList,
   onLibraryAddClickd: PropTypes.func.isRequired,
-  onPrefSelected: PropTypes.func.isRequired,
+  searchLibrary: PropTypes.func.isRequired,
   onKeywordChanged: PropTypes.func.isRequired,
 }
 
