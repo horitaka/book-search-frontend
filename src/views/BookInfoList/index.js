@@ -1,19 +1,27 @@
 import { connect } from 'react-redux'
 
 import BookInfoList from './BookInfoList';
-import { booksSelectors } from '../../state/modules/books'
+import { booksOperations, booksSelectors } from '../../state/modules/books'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     bookItemsAndStocks: booksSelectors.getBookItemsAndStocks(state),
     isSearching: state.books.isSearching,
+    isBooksSearching: state.books.isBooksSearching,
     isSucceededSearch: state.books.isSucceededSearch,
     isInitialState: state.books.isInitialState,
   };
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchBooks: () => dispatch(booksOperations.fetchBooks())
+  }
+}
+
 const BookInfoListContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(BookInfoList)
 
 export default BookInfoListContainer;

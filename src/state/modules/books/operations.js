@@ -11,7 +11,7 @@ import { getSearchQuery, getPage, getIsbns } from './selectors'
 import { userBookLibrariesSelectors } from '../user-book-libraries'
 
 
-export { runBookSearch }
+export { runBookSearch, fetchBooks }
 
 export function* booksSaga() {
   yield fork(watchRunBookSearch)

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -23,27 +22,24 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isSearching, isSucceededSearch } = props;
+  const { bookItemsAndStocks, isBooksSearching, isSucceededSearch, fetchBooks } = props;
   const classes = useStyles();
   const containerElement = useRef(null);
-
-  if (isSearching) {
-    return <Loading />
-  }
 
   if (!isSucceededSearch) {
     return <Typography className={classes.errorText}>検索に失敗しました</Typography>
   }
 
-  if (bookItemsAndStocks.length === 0) {
+  if (!isBooksSearching && bookItemsAndStocks.length === 0) {
     return <Typography className={classes.errorText}>検索結果が0件です</Typography>
   }
 
   const handleScroll = () => {
     const bottomPosition = containerElement.current.scrollTop + containerElement.current.clientHeight;
     const height = containerElement.current.scrollHeight;
-    if (bottomPosition >= height) {
+    if (!isBooksSearching && bottomPosition >= height * 0.9) {
       console.log('bottom')
+      fetchBooks();
     }
   }
 
@@ -52,7 +48,7 @@ function BookInfoList(props) {
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8}>
         <List>
           {bookItemsAndStocks.map(bookInfo => (
-            <Box key={bookInfo.title}>
+            <Box key={bookInfo.title + bookInfo.isbn}>
               <ListItem>
                 <BookInfo bookInfo={bookInfo} />
               </ListItem>
@@ -60,6 +56,7 @@ function BookInfoList(props) {
             </Box>
           ))}
         </List>
+        {isBooksSearching && <Loading />}
       </Grid>
     </Grid>
   );
@@ -70,10 +67,10 @@ function BookInfoList(props) {
 //   margin: 10px;
 // `
 
-BookInfoList.propTypes = {
-  isSearching: PropTypes.bool.isRequired,
-  isSucceededSearch: PropTypes.bool.isRequired,
-  bookItemsAndStocks: PropTypes.arrayOf(BookInfo.propTypes.bookInfo).isRequired,
-}
+// BookInfoList.propTypes = {
+//   isSearching: PropTypes.bool.isRequired,
+//   isSucceededSearch: PropTypes.bool.isRequired,
+//   bookItemsAndStocks: PropTypes.arrayOf(BookInfo.propTypes.bookInfo).isRequired,
+// }
 
 export default BookInfoList;

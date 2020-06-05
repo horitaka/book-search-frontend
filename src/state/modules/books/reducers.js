@@ -5,8 +5,8 @@ state
 
 books: {
   isInitialState: boolean,
-  isSearching: boolean,
-  isSucceededSearch: boolean
+  isSucceededSearch: boolean,
+  isBooksSearching: boolean,
   searchQuery: string,
   items: [{
     authors: Array<string>,
@@ -36,8 +36,8 @@ books: {
 
 const initialState = {
   isInitialState: true,
-  isSearching: false,
   isSucceededSearch: true,
+  isBooksSearching: false,
   searchQuery: '',
   page: 0,
   items: [],
@@ -50,7 +50,6 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         isInitialState: false,
-        isSearching: true,
         searchQuery: action.payload.searchQuery,
         page: 0,
         items: [],
@@ -60,7 +59,6 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         isInitialState: false,
-        isSearching: false,
         isSucceededSearch: true,
       }
     case types.RUN_BOOK_SEARCH_FAIL:
@@ -68,7 +66,7 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         isInitialState: false,
-        isSearching: false,
+        isBooksSearching: false,
         isSucceededSearch: false,
         items: [],
         booksStocks: {},
@@ -76,14 +74,21 @@ export default function bookSearch(state = initialState, action) {
     case types.FETCH_BOOKS_REQUEST:
       return {
         ...state,
+        isBooksSearching: true,
       }
     case types.FETCH_BOOKS_SUCCESS:
       return {
         ...state,
         isSearching: false,
+        isBooksSearching: false,
         page: state.page + 1,
-        items: [...action.payload.items],
-        booksStocks: initBooksStocks(action.payload.items)
+        // items: [...action.payload.items],
+        items: state.items.concat(action.payload.items),
+        // booksStocks: initBooksStocks(action.payload.items)
+        booksStocks: {
+          ...state.booksStocks,
+          ...initBooksStocks(action.payload.items)
+        }
       }
     case types.FETCH_BOOKS_STOCKS_REQUEST:
       return {
