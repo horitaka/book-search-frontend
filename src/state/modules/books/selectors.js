@@ -5,6 +5,8 @@ import { userBookLibrariesSelectors } from '../user-book-libraries'
 const bookItems = state => state.books.items;
 const booksStocks = state => state.books.booksStocks;
 
+export const getSearchQuery = state => state.books.searchQuery;
+export const getPage = state => state.books.page;
 
 export const getBookItemsAndStocks = createSelector(
   [bookItems, booksStocks, userBookLibrariesSelectors.userBookLibraries],

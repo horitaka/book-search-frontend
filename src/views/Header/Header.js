@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function AppHeader(props) {
-  const { history, searchBook } = props
+  const { history, runBookSearch } = props
   const textFieldElement = React.useRef(null);
   const classes = useStyles();
 
@@ -44,7 +44,7 @@ function AppHeader(props) {
     const keyword = textFieldElement.current.value
     if (keyword !== '') {
       history.push('/book-search')
-      searchBook(keyword)
+      runBookSearch(keyword)
     }
   }
 

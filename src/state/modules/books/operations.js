@@ -1,26 +1,35 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects'
+import { fork, call, put, select, take, takeEvery } from 'redux-saga/effects'
 
 import * as api from '../../util/api'
 import * as types from './types'
 import {
-  searchBook, searchBookSuccess, searchBookFail,
+  runBookSearch, runBookSearchSuccess, runBookSearchFail,
   fetchBooks, fetchBooksSuccess,
   fetchBooksStocks, fetchBooksStocksSuccess,
 } from './actions'
-import { getIsbns } from './selectors'
+import { getSearchQuery, getPage, getIsbns } from './selectors'
 import { userBookLibrariesSelectors } from '../user-book-libraries'
 
-export { searchBook }
+
+export { runBookSearch }
 
 export function* booksSaga() {
-  yield takeEvery(types.SEARCH_BOOK_REQUEST, searchBookSaga)
+  yield fork(watchRunBookSearch)
+  yield takeEvery(types.FETCH_BOOKS_REQUEST, searchBookSaga)
 }
 
-export function* searchBookSaga(action) {
-  const keyword = action.keyword;
-  try {
+function* watchRunBookSearch() {
+  while (true) {
+    yield take(types.RUN_BOOK_SEARCH);
     yield put(fetchBooks())
-    const books = yield call(api.searchBook, keyword)
+  }
+}
+
+export function* searchBookSaga() {
+  try {
+    const searchQuery = yield select(getSearchQuery);
+    const page = yield select(getPage);
+    const books = yield call(api.searchBook, searchQuery, page)
     yield put(fetchBooksSuccess(books))
 
     yield put(fetchBooksStocks())
@@ -29,9 +38,9 @@ export function* searchBookSaga(action) {
     const booksStocks = yield call(api.searchBooksStocks, isbns, libraryIds)
     yield put(fetchBooksStocksSuccess(booksStocks))
 
-    yield put(searchBookSuccess())
+    yield put(runBookSearchSuccess())
   } catch (exception) {
     console.warn(exception)
-    yield put(searchBookFail(exception)) // Todo:
+    yield put(runBookSearchFail(exception)) // Todo:
   }
 }

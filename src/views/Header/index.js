@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    searchBook: (keyword) => dispatch(booksOperations.searchBook(keyword))
+    runBookSearch: (searchQuery) => dispatch(booksOperations.runBookSearch(searchQuery))
   }
 }
 

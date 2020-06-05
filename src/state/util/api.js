@@ -36,16 +36,18 @@ export const searchLibrary = async (prefecture) => {
 // }
 
 
-export const searchBook = async (keyword) => {
+export const searchBook = async (keyword, page) => {
   const apiUrl = config.api.url;
   const params = {
-    keyword: keyword
+    keyword: keyword,
+    page: page,
   }
   const bookSearchUrl = apiUrl + '/books';
 
   const books = await get(bookSearchUrl, params);
   return books;
 }
+
 
 export const searchBooksStocks = async (isbns, libraryIds) => {
   const apiUrl = config.api.url;

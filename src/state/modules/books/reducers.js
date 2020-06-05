@@ -7,6 +7,7 @@ books: {
   isInitialState: boolean,
   isSearching: boolean,
   isSucceededSearch: boolean
+  searchQuery: string,
   items: [{
     authors: Array<string>,
     imageUrl: string,
@@ -37,28 +38,32 @@ const initialState = {
   isInitialState: true,
   isSearching: false,
   isSucceededSearch: true,
+  searchQuery: '',
+  page: 0,
   items: [],
   booksStocks: {},
 }
 
 export default function bookSearch(state = initialState, action) {
   switch (action.type) {
-    case types.SEARCH_BOOK_REQUEST:
+    case types.RUN_BOOK_SEARCH:
       return {
         ...state,
         isInitialState: false,
         isSearching: true,
+        searchQuery: action.payload.searchQuery,
+        page: 0,
         items: [],
         booksStocks: {},
       }
-    case types.SEARCH_BOOK_SUCCESS:
+    case types.RUN_BOOK_SEARCH_SUCCESS:
       return {
         ...state,
         isInitialState: false,
         isSearching: false,
         isSucceededSearch: true,
       }
-    case types.SEARCH_BOOK_FAIL:
+    case types.RUN_BOOK_SEARCH_FAIL:
       // Todo
       return {
         ...state,
@@ -76,6 +81,7 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         isSearching: false,
+        page: state.page + 1,
         items: [...action.payload.items],
         booksStocks: initBooksStocks(action.payload.items)
       }

@@ -1,21 +1,23 @@
 import * as types from './types'
 
-export function searchBook(keyword) {
+export function runBookSearch(searchQuery) {
   return {
-    type: types.SEARCH_BOOK_REQUEST,
-    keyword: keyword,
+    type: types.RUN_BOOK_SEARCH,
+    payload: {
+      searchQuery: searchQuery
+    },
   }
 }
 
-export function searchBookSuccess() {
+export function runBookSearchSuccess() {
   return {
-    type: types.SEARCH_BOOK_SUCCESS,
+    type: types.RUN_BOOK_SEARCH_SUCCESS,
   }
 }
 
-export function searchBookFail() {
+export function runBookSearchFail() {
   return {
-    type: types.SEARCH_BOOK_FAIL,
+    type: types.RUN_BOOK_SEARCH_FAIL,
   }
 }
 
