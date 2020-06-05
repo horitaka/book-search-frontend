@@ -5,6 +5,7 @@ import { booksOperations } from '../../state/modules/books'
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    isBooksSearching: state.books.isBooksSearching,
   };
 }
 

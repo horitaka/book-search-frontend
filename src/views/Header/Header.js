@@ -31,18 +31,22 @@ const useStyles = makeStyles(theme => createStyles({
   },
   button: {
     color: theme.palette.secondary.contrastText,
+  },
+  buttonDisabled: {
+    backgroundColor: theme.palette.secondary.dark,
   }
 }));
 
 function AppHeader(props) {
-  const { history, runBookSearch } = props
+  const { isBooksSearching, history, runBookSearch } = props
   const textFieldElement = React.useRef(null);
   const classes = useStyles();
+
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const keyword = textFieldElement.current.value
-    if (keyword !== '') {
+    if (keyword !== '' && !isBooksSearching) {
       history.push('/book-search')
       runBookSearch(keyword)
     }
@@ -60,7 +64,7 @@ function AppHeader(props) {
       </Grid>
 
       <Grid container alignItems="stretch" item xs={1}>
-        <Button color='secondary' variant='contained' onClick={handleSearchClick} className={classes.button} >
+        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>
       </Grid>
