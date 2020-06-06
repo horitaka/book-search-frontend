@@ -9,12 +9,18 @@ import ListItem from '@material-ui/core/ListItem';
 import Link from '@material-ui/core/Link'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
+import defaultBookImage from '../../images/no-book-image.jpg'
+
 const useStyles = makeStyles(theme => createStyles({
   root: {
     minWidth: '600px',
   },
   title: {
     fontWeight: 'bold',
+  },
+  img: {
+    maxWidth: '100px',
+    height: 'auto'
   }
 
 }));
@@ -71,10 +77,11 @@ function BookInfo(props) {
   const { bookInfo } = props
   const classes = useStyles();
 
+  const bookImage = bookInfo.imageUrl ? bookInfo.imageUrl : defaultBookImage;
   return (
     <Grid container justify="flex-start" alignItems="flex-start" className={classes.root}>
       <Grid item xs={3}>
-        <img src={bookInfo.imageUrl} alt={bookInfo.title} />
+        <img src={bookImage} alt={bookInfo.title} className={classes.img} />
       </Grid>
       <Grid item xs={9}>
         <Typography variant="body1" className={classes.title}>{bookInfo.title}</Typography>
