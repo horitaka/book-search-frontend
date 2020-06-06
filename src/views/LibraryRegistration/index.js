@@ -9,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isInitialState: state.bookLibraries.isInitialState,
     isSucceededRegistration: state.bookLibraries.isSucceededRegistration,
-    libraryList: bookLibrariesSelectors.getLibraryList(state)
+    libraryList: bookLibrariesSelectors.getLibraryList(state),
+    error: state.bookLibraries.error,
   }
 }
 

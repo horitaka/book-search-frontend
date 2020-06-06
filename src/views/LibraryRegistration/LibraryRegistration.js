@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function LibraryRegistration(props) {
-  const { isInitialState, isSucceededRegistration, libraryList, onLibraryAddClickd, searchLibrary, onKeywordChanged } = props
+  const { isInitialState, isSucceededRegistration, libraryList, error, onLibraryAddClickd, searchLibrary, onKeywordChanged } = props
   const classes = useStyles();
 
   return (
@@ -34,6 +34,7 @@ function LibraryRegistration(props) {
           onLibraryAddClickd={onLibraryAddClickd}
           isInitialState={isInitialState}
           isSucceededRegistration={isSucceededRegistration}
+          error={error}
         />
       </Grid>
     </Grid>

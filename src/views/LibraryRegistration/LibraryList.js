@@ -24,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LibraryList(props) {
-  const { libraryList, onLibraryAddClickd, isInitialState } = props;
+  const { libraryList, onLibraryAddClickd, isInitialState, error } = props;
   const classes = useStyles();
 
   if (isInitialState) {
     return null;
+  }
+
+  if (Object.keys(error).length !== 0) {
+    return <Typography>検索に失敗しました</Typography>
   }
 
   const LibraryList = () => {

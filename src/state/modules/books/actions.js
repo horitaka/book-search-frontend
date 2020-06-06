@@ -15,9 +15,12 @@ export function runBookSearchSuccess() {
   }
 }
 
-export function runBookSearchFail() {
+export function runBookSearchFail(error) {
   return {
     type: types.RUN_BOOK_SEARCH_FAIL,
+    payload: {
+      error: error,
+    }
   }
 }
 

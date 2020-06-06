@@ -11,8 +11,8 @@ const get = (url, params = {}) => {
         resolve(response.data)
       })
       .catch(error => {
-        console.warn(error)
-        reject(error)
+        console.error(error.response.data)
+        reject(error.response.data)
       })
   })
 }

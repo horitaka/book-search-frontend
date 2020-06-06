@@ -47,7 +47,7 @@ function AppHeader(props) {
     event.preventDefault();
     const keyword = textFieldElement.current.value
     if (keyword !== '' && !isBooksSearching) {
-      history.push('/book-search')
+      history.push('/books')
       runBookSearch(keyword)
     }
   }

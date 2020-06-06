@@ -5,8 +5,12 @@ state
 
 books: {
   isInitialState: boolean,
-  isSucceededSearch: boolean,
   isBooksSearching: boolean,
+  error: {
+    statsuCode: number,
+    error:
+    message: string
+  }
   searchQuery: string,
   items: [{
     authors: Array<string>,
@@ -36,12 +40,12 @@ books: {
 
 const initialState = {
   isInitialState: true,
-  isSucceededSearch: true,
   isBooksSearching: false,
   searchQuery: '',
   page: 0,
   items: [],
   booksStocks: {},
+  error: {}
 }
 
 export default function bookSearch(state = initialState, action) {
@@ -54,22 +58,22 @@ export default function bookSearch(state = initialState, action) {
         page: 0,
         items: [],
         booksStocks: {},
+        error: {}
       }
     case types.RUN_BOOK_SEARCH_SUCCESS:
       return {
         ...state,
         isInitialState: false,
-        isSucceededSearch: true,
+        error: {}
       }
     case types.RUN_BOOK_SEARCH_FAIL:
-      // Todo
       return {
         ...state,
         isInitialState: false,
         isBooksSearching: false,
-        isSucceededSearch: false,
         items: [],
         booksStocks: {},
+        error: action.payload.error,
       }
     case types.FETCH_BOOKS_REQUEST:
       return {
@@ -82,9 +86,7 @@ export default function bookSearch(state = initialState, action) {
         isSearching: false,
         isBooksSearching: false,
         page: state.page + 1,
-        // items: [...action.payload.items],
         items: state.items.concat(action.payload.items),
-        // booksStocks: initBooksStocks(action.payload.items)
         booksStocks: {
           ...state.booksStocks,
           ...initBooksStocks(action.payload.items)

@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isBooksSearching, isSucceededSearch, fetchBooks } = props;
+  const { bookItemsAndStocks, isBooksSearching, error, fetchBooks } = props;
   const classes = useStyles();
   const containerElement = useRef(null);
 
-  if (!isSucceededSearch) {
+  if (Object.keys(error).length !== 0) {
     return <Typography className={classes.errorText}>検索に失敗しました</Typography>
   }
 

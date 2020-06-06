@@ -8,8 +8,9 @@ const mapStateToProps = (state, ownProps) => {
     bookItemsAndStocks: booksSelectors.getBookItemsAndStocks(state),
     isSearching: state.books.isSearching,
     isBooksSearching: state.books.isBooksSearching,
-    isSucceededSearch: state.books.isSucceededSearch,
+    // isSucceededSearch: state.books.isSucceededSearch,
     isInitialState: state.books.isInitialState,
+    error: state.books.error,
   };
 }
 

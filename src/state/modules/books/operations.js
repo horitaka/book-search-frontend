@@ -39,8 +39,7 @@ export function* searchBookSaga() {
     yield put(fetchBooksStocksSuccess(booksStocks))
 
     yield put(runBookSearchSuccess())
-  } catch (exception) {
-    console.warn(exception)
-    yield put(runBookSearchFail(exception)) // Todo:
+  } catch (error) {
+    yield put(runBookSearchFail(error))
   }
 }

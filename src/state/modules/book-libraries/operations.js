@@ -15,8 +15,7 @@ export function* searchLibrarySaga(action) {
   try {
     const libraryList = yield call(api.searchLibrary, prefecture);
     yield put(searchLibrarySuccess(libraryList))
-  } catch (exception) {
-    console.warn(exception)
-    yield put(searchLibraryFail(exception)) // Todo:
+  } catch (error) {
+    yield put(searchLibraryFail(error))
   }
 }
