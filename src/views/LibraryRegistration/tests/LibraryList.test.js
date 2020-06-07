@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 
 import LibraryList from '../LibraryList'
 import { showToast } from '../../../common/Toast';
@@ -9,22 +9,22 @@ jest.mock('../../../common/Toast', () => ({
 }));
 
 export const libraryList = [{
-  libraryID: 'Tokyo_Arakawa',
+  libraryId: 'Tokyo_Arakawa',
   libraryName: '東京都荒川区',
   prefecture: '東京都',
   city: '荒川区',
   librarySiteUrl: 'https://www.library.city.arakawa.tokyo.jp/',
   branches: ['汐入図書SS', '町屋図書館'],
   isRegistered: true,
-},{
-  libraryID: 'Tokyo_Bunkyo',
+}, {
+  libraryId: 'Tokyo_Bunkyo',
   libraryName: '東京都文京区',
   prefecture: '東京都',
   city: '文京区',
   librarySiteUrl: 'http://www.lib.city.bunkyo.tokyo.jp/',
   branches: ['千石図書館', '小石川図書館'],
   isRegistered: true,
-},{
+}, {
   libraryID: 'Tokyo_NDL',
   libraryName: '国立国会図書館',
   prefecture: '東京都',
@@ -39,12 +39,12 @@ describe('<LibraryList> Component', () => {
   const onLibraryAddClickdMock = jest.fn();
 
   it('render correctly', () => {
-    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false}/>)
+    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false} />)
     expect(wrapper).toMatchSnapshot();
   });
 
-  describe('when props is normal', ()=> {
-    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false}/>)
+  describe('when props is normal', () => {
+    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false} />)
 
     it('has three LibraryLink', () => {
       expect(wrapper.find('LibraryLink')).toHaveLength(libraryList.length);
@@ -75,16 +75,16 @@ describe('<LibraryList> Component', () => {
 
   });
 
-  describe('when props is libraryList=[]', ()=> {
-    const wrapper = shallow(<LibraryList libraryList={[]} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false}/>)
+  describe('when props is libraryList=[]', () => {
+    const wrapper = shallow(<LibraryList libraryList={[]} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false} />)
 
     it('has AddButton with disabled prop and 登録済み text', () => {
       expect(wrapper.exists('InstructionText')).toBe(true);
     });
   });
 
-  describe('when props is isInitialState=true', ()=> {
-    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={true}/>)
+  describe('when props is isInitialState=true', () => {
+    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={true} />)
 
     it('return null', () => {
       expect(wrapper.isEmptyRender()).toEqual(true);
@@ -92,8 +92,8 @@ describe('<LibraryList> Component', () => {
   });
 
 
-  describe('when AddButton is clicked', ()=> {
-    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false}/>)
+  describe('when AddButton is clicked', () => {
+    const wrapper = shallow(<LibraryList libraryList={libraryList} onLibraryAddClickd={onLibraryAddClickdMock} isInitialState={false} />)
 
     it('return null', () => {
 

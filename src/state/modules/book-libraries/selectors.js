@@ -34,7 +34,7 @@ function addRegisteredFlag(allLibraryList, userLibraryList) {
     }
 
     const isRegistered = userLibraryList.some(userLibrary => {
-      return userLibrary.libraryID === library.libraryID
+      return userLibrary.libraryId === library.libraryId
     })
 
     return {

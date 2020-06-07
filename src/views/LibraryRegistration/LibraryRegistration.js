@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => createStyles({
   root: {
     height: '100%',
     overflowY: 'scroll',
+    [theme.breakpoints.down('sm')]: {
+      overflowY: 'hidden',
+    }
   },
   header: {
     margin: theme.spacing(2, 0, 0, 0)
@@ -19,14 +22,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function LibraryRegistration(props) {
-  const { isInitialState, isSucceededRegistration, libraryList, onLibraryAddClickd, onPrefSelected, onKeywordChanged } = props
+  const { isInitialState, isSucceededRegistration, libraryList, error, onLibraryAddClickd, searchLibrary, onKeywordChanged } = props
   const classes = useStyles();
 
   return (
     <Grid container direction="row" justify="center" alignItems="stretch" className={classes.root}>
-      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8} className={classes.header}>
+      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={11} md={8} className={classes.header}>
         <LibrarySearch
-          onPrefSelected={onPrefSelected}
+          searchLibrary={searchLibrary}
           onKeywordChanged={onKeywordChanged}
         />
         <LibraryList
@@ -34,6 +37,7 @@ function LibraryRegistration(props) {
           onLibraryAddClickd={onLibraryAddClickd}
           isInitialState={isInitialState}
           isSucceededRegistration={isSucceededRegistration}
+          error={error}
         />
       </Grid>
     </Grid>
@@ -45,7 +49,7 @@ LibraryRegistration.propTypes = {
   isSucceededRegistration: PropTypes.bool.isRequired,
   libraryList: LibraryList.propTypes.libraryList,
   onLibraryAddClickd: PropTypes.func.isRequired,
-  onPrefSelected: PropTypes.func.isRequired,
+  searchLibrary: PropTypes.func.isRequired,
   onKeywordChanged: PropTypes.func.isRequired,
 }
 

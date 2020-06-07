@@ -14,9 +14,12 @@ export function searchLibrarySuccess(libraryList) {
   }
 }
 
-export function searchLibraryFail() {
+export function searchLibraryFail(error) {
   return {
-    type: types.SEARCH_LIBRARY_FAIL
+    type: types.SEARCH_LIBRARY_FAIL,
+    payload: {
+      error: error,
+    }
   }
 }
 

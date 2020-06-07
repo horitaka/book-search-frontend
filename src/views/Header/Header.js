@@ -5,58 +5,76 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
-import serviceLogo from '../../images/service-logo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
+
+// import serviceLogo from '../../images/service-logo.png'
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
     background: theme.palette.primary.main,
     padding: theme.spacing(2, 0, 2, 0)
   },
+  icon: {
+    padding: theme.spacing(0, 2)
+  },
   img: {
     marginRight: theme.spacing(1),
-    height: '50px',
+    height: '40px',
     objectFit: 'contain'
   },
   textFieldContainer: {
-    minWidth: '300px'
+    minWidth: '300px',
   },
   textField: {
     background: theme.palette.secondary.contrastText,
     borderRadius: theme.spacing(1),
+    '& .MuiOutlinedInput-root': {
+      height: '100%',
+    }
   },
   button: {
     color: theme.palette.secondary.contrastText,
+  },
+  buttonDisabled: {
+    backgroundColor: theme.palette.secondary.dark,
   }
 }));
 
 function AppHeader(props) {
-  const { history, searchBook } = props
+  const { isBooksSearching, history, runBookSearch } = props
+  const textFieldElement = React.useRef(null);
   const classes = useStyles();
+
 
   const handleSearchClick = (event) => {
     event.preventDefault();
-    const keyword = event.target.value
-    if (keyword !== '') {
-      history.push('/book-search')
-      searchBook(keyword)
+    const keyword = textFieldElement.current.value
+    if (keyword !== '' && !isBooksSearching) {
+      history.push('/books')
+      runBookSearch(keyword)
     }
   }
 
   return (
     <Grid container justify="center" alignItems="stretch" item xs={12} className={classes.root} >
 
-      <Grid container justify="flex-end" alignItems="center" item xs={2}>
-        <img src={serviceLogo} alt="ロゴ" className={classes.img} />
+      <Grid container justify="flex-end" alignItems="center" item xs={2} className={classes.icon}>
+        <Typography variant='h4'>
+          <FontAwesomeIcon icon={faBookOpen} color='white' />
+        </Typography>
+        {/* <img src={serviceLogo} alt="ロゴ" className={classes.img} /> */}
       </Grid>
 
       <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
-        <TextField variant="outlined" fullWidth color="secondary" placeholder="本を検索..." className={classes.textField} />
+        <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
       </Grid>
 
       <Grid container alignItems="stretch" item xs={1}>
-        <Button color='secondary' variant='contained' onClick={handleSearchClick} className={classes.button} >
+        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>
       </Grid>

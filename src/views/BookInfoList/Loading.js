@@ -1,15 +1,16 @@
 import React from 'react';
 
-import Container from '../../components/common/Container'
+import Grid from '@material-ui/core/Grid';
+
 import './Loading.css'
 
 function Loading() {
   return (
-    <Container direction={'row'} justifyContent={'center'} alignItems={'center'}>
+    <Grid >
       <div className="loader">
         Loading...
       </div>
-    </Container>
+    </Grid>
   );
 }
 

@@ -1,22 +1,57 @@
 import * as types from './types'
 
-export function searchBook(keyword, libraryIDList) {
+export function runBookSearch(searchQuery) {
   return {
-    type: types.SEARCH_BOOK_REQUEST,
-    keyword: keyword,
-    libraryIDList: libraryIDList,
+    type: types.RUN_BOOK_SEARCH,
+    payload: {
+      searchQuery: searchQuery
+    },
   }
 }
 
-export function searchBookSuccess(bookInfoList) {
+export function runBookSearchSuccess() {
   return {
-    type: types.SEARCH_BOOK_SUCCESS,
-    bookInfoList: bookInfoList,
+    type: types.RUN_BOOK_SEARCH_SUCCESS,
   }
 }
 
-export function searchBookFail() {
+export function runBookSearchFail(error) {
   return {
-    type: types.SEARCH_BOOK_FAIL,
+    type: types.RUN_BOOK_SEARCH_FAIL,
+    payload: {
+      error: error,
+    }
+  }
+}
+
+
+export function fetchBooks() {
+  return {
+    type: types.FETCH_BOOKS_REQUEST,
+  }
+}
+
+export function fetchBooksSuccess(bookItems) {
+  return {
+    type: types.FETCH_BOOKS_SUCCESS,
+    payload: {
+      items: bookItems,
+    }
+  }
+}
+
+
+export function fetchBooksStocks() {
+  return {
+    type: types.FETCH_BOOKS_STOCKS_REQUEST
+  }
+}
+
+export function fetchBooksStocksSuccess(booksStocks) {
+  return {
+    type: types.FETCH_BOOKS_STOCKS_SUCCESS,
+    payload: {
+      booksStocks: booksStocks,
+    }
   }
 }

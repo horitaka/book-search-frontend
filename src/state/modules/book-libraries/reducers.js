@@ -12,6 +12,11 @@ export default function bookLibraries(state = bookSearchFunction.initLibraryRegi
         keyword: action.keyword,
         isSucceededRegistration: false,
       };
+    case types.SEARCH_LIBRARY_REQUEST:
+      return {
+        ...state,
+        error: {}
+      }
     case types.SEARCH_LIBRARY_SUCCESS:
       return {
         ...state,
@@ -20,11 +25,11 @@ export default function bookLibraries(state = bookSearchFunction.initLibraryRegi
         isSucceededRegistration: false,
       }
     case types.SEARCH_LIBRARY_FAIL:
-      // Todo
       return {
         ...state,
         isInitialState: false,
         isSucceededRegistration: false,
+        error: action.payload.error,
       }
     case userBookLibrariesTypes.ADD_LIBRARY:
       return {

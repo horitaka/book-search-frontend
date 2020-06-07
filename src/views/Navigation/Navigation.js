@@ -29,7 +29,7 @@ function Navigation(props) {
   const classes = useStyles();
 
   const handleNewLibraryButtonClicked = (event) => {
-    history.push('library-registration')
+    history.push('libraries')
   }
 
   return (

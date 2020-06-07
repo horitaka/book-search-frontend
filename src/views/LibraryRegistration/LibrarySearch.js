@@ -21,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LibrarySearch({ onPrefSelected, onKeywordChanged }) {
-  const [prefecture, setPrefecture] = useState('東京都')
+function LibrarySearch({ searchLibrary, onKeywordChanged }) {
+  const defaultPrefecture = '東京都'
+  const [prefecture, setPrefecture] = useState(defaultPrefecture)
   const classes = useStyles();
 
   let prefectureOptions = prefectureList.map(prefecture => {
@@ -35,13 +36,13 @@ function LibrarySearch({ onPrefSelected, onKeywordChanged }) {
   const onKeywordChangedDebounced = debounce(onKeywordChanged, 500);
 
   useEffect(() => {
-    onPrefSelected(prefecture)
-  }, []);
+    searchLibrary(defaultPrefecture)
+  }, [searchLibrary]);
 
   const handlePrefSelected = (event) => {
     const prefecture = event.target.value;
     setPrefecture(prefecture)
-    onPrefSelected(prefecture)
+    searchLibrary(prefecture)
   }
 
   const handleKeywordChange = (event) => {
@@ -74,7 +75,7 @@ function LibrarySearch({ onPrefSelected, onKeywordChanged }) {
 }
 
 LibrarySearch.propTypes = {
-  onPrefSelected: PropTypes.func.isRequired,
+  searchLibrary: PropTypes.func.isRequired,
   onKeywordChanged: PropTypes.func.isRequired,
 }
 

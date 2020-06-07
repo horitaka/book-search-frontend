@@ -1,35 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-
+import AppThemeProvider from './AppThemeProvider'
 import Header from './Header'
 import Navigation from './Navigation/Navigation'
-import AppRouter from './AppRouter';
 import Footer from './Footer/Footer'
 import { Toast } from './Toast';
+import LibraryRegistration from './LibraryRegistration';
+import BookInfoList from './BookInfoList';
+import ServiceIntroduction from './ServiceIntroduction/ServiceIntroduction';
+
 
 import './App.css'
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#03A9F4',
-      // dark: will be calculated from palette.primary.main,
-      contrastText: '#ffffff'
-    },
-    secondary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#FF80AB',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#ffffff'
-    },
-  },
-});
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
@@ -42,18 +27,32 @@ const useStyles = makeStyles(theme => createStyles({
   },
   contents: {
     height: '85%',
-    // background: 'blue',
+    backgroundColor: '#fdfdfd',
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      order: 1,
+    }
+  },
+  navigation: {
+    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      order: 2,
+      height: 'auto',
+    }
   },
   main: {
     height: '100%',
-    overflowY: 'scroll',
-  },
-  navication: {
-    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      order: 1,
+      height: 'auto',
+    }
   },
   footer: {
     height: '5%',
     background: 'yellow',
+    [theme.breakpoints.down('sm')]: {
+      order: 3,
+    }
   }
 }));
 
@@ -62,7 +61,7 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <Router>
         <Grid className={classes.root} alignItems="stretch" container>
           <Toast />
@@ -70,19 +69,23 @@ function App() {
             <Header />
           </Grid>
           <Grid className={classes.contents} container item xs={12}>
-            <Grid container item xs={3} className={classes.navication}>
+            <Grid container item xs={12} md={3} className={classes.navigation}>
               <Navigation />
             </Grid>
-            <Grid container item xs={9} className={classes.main}>
-              <AppRouter />
+            <Grid container item xs={12} md={9} className={classes.main}>
+              <Switch>
+                <Route path="/books" component={BookInfoList} />
+                <Route path="/libraries" component={LibraryRegistration} />
+                <Route path="/" component={ServiceIntroduction} />
+              </Switch>
             </Grid>
           </Grid>
-          <Grid className={classes.footer} container item xs={12}>
+          <Grid container item xs={12} className={classes.footer}>
             <Footer />
           </Grid>
         </Grid>
       </Router>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
 
