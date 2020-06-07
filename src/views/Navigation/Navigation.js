@@ -45,7 +45,7 @@ function Navigation(props) {
         <Typography variant="h6" className={classes.header}>登録済みの図書館</Typography>
         <UserLibraryList />
         <Button color="secondary" onClick={handleNewLibraryButtonClicked} className={classes.newButton}>
-          <Typography variant="h6" className={classes.linkButton}>図書館を登録</Typography>
+          <Typography variant="h6" className={classes.linkButton}>図書館を追加</Typography>
         </Button>
         <ShareButtons />
       </Grid >

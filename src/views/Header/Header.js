@@ -11,8 +11,6 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 
-// import serviceLogo from '../../images/service-logo.png'
-
 const useStyles = makeStyles(theme => createStyles({
   root: {
     background: theme.palette.primary.main,
@@ -29,12 +27,16 @@ const useStyles = makeStyles(theme => createStyles({
   textFieldContainer: {
     minWidth: '300px',
   },
+  form: {
+    width: '100%',
+  },
   textField: {
     background: theme.palette.secondary.contrastText,
     borderRadius: theme.spacing(1),
+    height: '100%',
     '& .MuiOutlinedInput-root': {
       height: '100%',
-    }
+    },
   },
   button: {
     color: theme.palette.secondary.contrastText,
@@ -59,6 +61,15 @@ function AppHeader(props) {
     }
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const keyword = textFieldElement.current.value
+    if (keyword !== '' && !isBooksSearching) {
+      history.push('/books')
+      runBookSearch(keyword)
+    }
+  }
+
   return (
     <Grid container justify="center" alignItems="stretch" item xs={12} className={classes.root} >
 
@@ -66,11 +77,12 @@ function AppHeader(props) {
         <Typography variant='h4'>
           <FontAwesomeIcon icon={faBookOpen} color='white' />
         </Typography>
-        {/* <img src={serviceLogo} alt="ロゴ" className={classes.img} /> */}
       </Grid>
 
       <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
-        <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
+        </form>
       </Grid>
 
       <Grid container alignItems="stretch" item xs={1}>

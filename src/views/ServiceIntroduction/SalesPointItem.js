@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => createStyles({
   header: {
     height: '15%',
     textAlign: 'center',
-    textShadow: '2px 2px 2px rgba(0,0,0,0.3)',
+    // textShadow: '2px 2px 2px rgba(0,0,0,0.3)',
   },
   media: {
     height: '85%',
