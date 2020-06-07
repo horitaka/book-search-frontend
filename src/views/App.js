@@ -27,18 +27,31 @@ const useStyles = makeStyles(theme => createStyles({
   },
   contents: {
     height: '85%',
-    // background: 'blue',
-  },
-  main: {
-    height: '100%',
-    // overflowY: 'scroll',
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      order: 1,
+    }
   },
   navigation: {
     height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      order: 2,
+      height: 'auto',
+    }
+  },
+  main: {
+    height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      order: 1,
+      height: 'auto',
+    }
   },
   footer: {
     height: '5%',
     background: 'yellow',
+    [theme.breakpoints.down('sm')]: {
+      order: 3,
+    }
   }
 }));
 
@@ -55,10 +68,10 @@ function App() {
             <Header />
           </Grid>
           <Grid className={classes.contents} container item xs={12}>
-            <Grid container item xs={3} className={classes.navigation}>
+            <Grid container item xs={12} md={3} className={classes.navigation}>
               <Navigation />
             </Grid>
-            <Grid container item xs={9} className={classes.main}>
+            <Grid container item xs={12} md={9} className={classes.main}>
               <Switch>
                 <Route path="/books" component={BookInfoList} />
                 <Route path="/libraries" component={LibraryRegistration} />
@@ -66,7 +79,7 @@ function App() {
               </Switch>
             </Grid>
           </Grid>
-          <Grid className={classes.footer} container item xs={12}>
+          <Grid container item xs={12} className={classes.footer}>
             <Footer />
           </Grid>
         </Grid>

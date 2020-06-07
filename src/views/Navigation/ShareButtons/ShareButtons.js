@@ -13,7 +13,7 @@ import config from '../../../config'
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
-    margin: theme.spacing(2, 0, 0, 2),
+    padding: theme.spacing(2, 0, 0, 2),
   },
   item: {
     marginRight: theme.spacing(2)

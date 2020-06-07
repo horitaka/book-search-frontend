@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => createStyles({
   root: {
     height: '100%',
     overflowY: 'scroll',
+    [theme.breakpoints.down('sm')]: {
+      overflowY: 'hidden',
+    }
   },
   errorText: {
     margin: theme.spacing(3, 3, 3, 3)
@@ -45,7 +48,7 @@ function BookInfoList(props) {
 
   return (
     <Grid container justify="center" alignItems="stretch" ref={containerElement} onScroll={handleScroll} className={classes.root} >
-      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8}>
+      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={11} md={8}>
         <List>
           {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.title + bookInfo.isbn}>

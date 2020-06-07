@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => createStyles({
   root: {
     height: '100%',
     overflowY: 'scroll',
+    [theme.breakpoints.down('sm')]: {
+      overflowY: 'hidden',
+    }
   },
   header: {
     margin: theme.spacing(2, 0, 0, 0)
@@ -24,7 +27,7 @@ function LibraryRegistration(props) {
 
   return (
     <Grid container direction="row" justify="center" alignItems="stretch" className={classes.root}>
-      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={8} className={classes.header}>
+      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={11} md={8} className={classes.header}>
         <LibrarySearch
           searchLibrary={searchLibrary}
           onKeywordChanged={onKeywordChanged}

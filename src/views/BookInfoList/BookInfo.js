@@ -13,7 +13,7 @@ import defaultBookImage from '../../images/no-book-image.jpg'
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
-    minWidth: '600px',
+    // minWidth: '600px',
   },
   title: {
     fontWeight: 'bold',
