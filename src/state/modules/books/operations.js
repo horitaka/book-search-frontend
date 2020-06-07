@@ -35,8 +35,12 @@ export function* searchBookSaga() {
     yield put(fetchBooksStocks())
     const isbns = yield select(getIsbns)
     const libraryIds = yield select(userBookLibrariesSelectors.getLibraryIds)
-    const booksStocks = yield call(api.searchBooksStocks, isbns, libraryIds)
-    yield put(fetchBooksStocksSuccess(booksStocks))
+    if (libraryIds.length !== 0) {
+      const booksStocks = yield call(api.searchBooksStocks, isbns, libraryIds)
+      yield put(fetchBooksStocksSuccess(booksStocks))
+    } else {
+      yield put(fetchBooksStocksSuccess([]))
+    }
 
     yield put(runBookSearchSuccess())
   } catch (error) {

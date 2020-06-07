@@ -2,52 +2,82 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import { makeStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import { showToast } from '../../Toast';
 
 
-// const useStyles = makeStyles(theme => createStyles({
-//   root: {
-
-//   },
-
-// }));
+const useStyles = makeStyles(theme => createStyles({
+  root: {
+    width: '100%',
+  },
+  nesstedItem: {
+    left: theme.spacing(2),
+  },
+  noLibraryText: {
+    paddingLeft: theme.spacing(2),
+  }
+}));
 
 function UserLibraryList({ libraryList, onDeleteClicked }) {
-  // const classes = useStyles();
+  const classes = useStyles();
+  const [isOpens, setOpens] = React.useState(new Array(libraryList.length).fill(false));
 
-  function handleDeleteClick(library) {
+  if (libraryList.length === 0) {
+    return (<Typography variant="body1" className={classes.noLibraryText}>図書館が登録されていません</Typography>)
+  }
+
+  const handleLibraryClick = (index) => {
+    const newArray = [...isOpens]
+    newArray[index] = !isOpens[index]
+    setOpens(newArray)
+  };
+
+  const handleDeleteClick = (library) => {
     showToast('削除しました');
+    setOpens(new Array(libraryList.length).fill(false))
     onDeleteClicked(library);
   }
 
-  if (libraryList.length === 0) {
-    return (<Typography variant="body1">図書館が登録されていません</Typography>)
-  }
-
   return (
-    <List>
-      {libraryList.map(library => (
-        <ListItem key={library.libraryId}>
-          <Grid container justify="flex-start" alignItems="center" spacing={2}>
-            <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9}>
-              <Link href={library.librarySiteUrl} target="_blank" rel="noreferrer noopener">{library.libraryName}</Link>
-              <Typography variant="body2">{library.branches.join(', ')}</Typography>
+    <List dense className={classes.root}>
+      {libraryList.map((library, index) => (
+        <Box key={library.libraryId} >
+
+          <ListItem onClick={() => handleLibraryClick(index)}>
+            <Grid container justify="space-between" alignItems="center" spacing={2}>
+              <Grid item xs={8}>
+                <Link href={library.librarySiteUrl} target="_blank" rel="noreferrer noopener">{library.libraryName}</Link>
+              </Grid>
+              <Grid item xs={1}>
+                {isOpens[index] ? <ExpandLess /> : <ExpandMore />}
+              </Grid>
             </Grid>
-            <Grid item xs={2}>
-              <Button variant="contained" color="primary" onClick={() => handleDeleteClick(library)}>削除</Button>
-            </Grid>
-          </Grid>
-        </ListItem>
+          </ListItem>
+
+          <Collapse in={isOpens[index]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Button color="primary" onClick={() => handleDeleteClick(library)} className={classes.nesstedItem}>削除</Button>
+              {library.branches.map(branch => (
+                <ListItem dense key={branch} className={classes.nesstedItem}>
+                  <Typography variant="body2">{branch}</Typography>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </Box>
       ))}
-    </List>
+    </List >
   );
 }
 
