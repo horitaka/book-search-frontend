@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => createStyles({
   },
   header: {
     height: '15%',
-    // justifyContent: 'flex-end',
+    textAlign: 'center',
+    textShadow: '2px 2px 2px rgba(0,0,0,0.3)',
   },
   media: {
     height: '85%',
@@ -26,7 +27,7 @@ const SalesPointItem = (props) => {
   const { text, img } = props
   const classes = useStyles();
 
-  const title = <Typography>{text}</Typography>
+  const title = <Typography variant='h6'>{text}</Typography>
   return (
     <Card className={classes.root}>
       <CardHeader title={title} className={classes.header} />

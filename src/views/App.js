@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => createStyles({
   },
   contents: {
     height: '85%',
+    backgroundColor: '#fdfdfd',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
       order: 1,
