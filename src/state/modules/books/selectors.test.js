@@ -1,4 +1,4 @@
-import { getStocksByLibrary, getBookItemsAndStocks } from './selectors'
+import { getStocksByLibrary, getBookItemsAndStocks, getIsBooksStocksSearching } from './selectors'
 
 describe('books selectors', () => {
   const items = [{
@@ -239,4 +239,49 @@ describe('books selectors', () => {
     expect(getBookItemsAndStocks(state1)).toEqual([])
     expect(getBookItemsAndStocks(state2)).toEqual([])
   })
+
+  it('calls getIsBooksStocksSearching, with all fetched', () => {
+    const booksStocks = {
+      '9784274225406': {
+        isBooksStocksFetched: true,
+      },
+      '9784861003660': {
+        isBooksStocksFetched: true,
+      },
+      '9784798056593': {
+        isBooksStocksFetched: true,
+      },
+    }
+    const state = {
+      books: {
+        booksStocks
+      }
+    }
+
+    expect(getIsBooksStocksSearching(state)).toBe(false)
+
+  });
+
+  it('calls getIsBooksStocksSearching, with some not fetched', () => {
+    const booksStocks = {
+      '9784274225406': {
+        isBooksStocksFetched: true,
+      },
+      '9784861003660': {
+        isBooksStocksFetched: false,
+      },
+      '9784798056593': {
+        isBooksStocksFetched: true,
+      },
+    }
+    const state = {
+      books: {
+        booksStocks
+      }
+    }
+
+    expect(getIsBooksStocksSearching(state)).toBe(true)
+
+  })
+
 })

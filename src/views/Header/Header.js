@@ -47,24 +47,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function AppHeader(props) {
-  const { isBooksSearching, history, runBookSearch } = props
+  const { isBooksSearching, isBooksStocksSearching, history, runBookSearch } = props
   const textFieldElement = React.useRef(null);
   const classes = useStyles();
-
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const keyword = textFieldElement.current.value
-    if (keyword !== '' && !isBooksSearching) {
-      history.push('/books')
-      runBookSearch(keyword)
-    }
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const keyword = textFieldElement.current.value
-    if (keyword !== '' && !isBooksSearching) {
+    if (keyword !== '' && !isBooksSearching && !isBooksStocksSearching) {
       history.push('/books')
       runBookSearch(keyword)
     }
@@ -80,13 +70,13 @@ function AppHeader(props) {
       </Grid>
 
       <Grid container alignItems="stretch" item xs={7} md={4} className={classes.textFieldContainer}>
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onSubmit={handleSearchClick} className={classes.form}>
           <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
         </form>
       </Grid>
 
       <Grid container alignItems="stretch" item xs={2}>
-        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
+        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={(!isBooksSearching && !isBooksStocksSearching) ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>
       </Grid>

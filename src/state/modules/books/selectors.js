@@ -82,6 +82,15 @@ export const getShouldShowNextButton = createSelector(
   }
 )
 
+export const getIsBooksStocksSearching = createSelector(
+  [booksStocks],
+  (booksStocks) => {
+    const isbns = Object.keys(booksStocks);
+    const isBooksStocksSearching = isbns.some(isbn => !booksStocks[isbn].isBooksStocksFetched)
+    return isBooksStocksSearching
+  }
+)
+
 export const getIsbns = createSelector(
   bookItems,
   bookItems => {

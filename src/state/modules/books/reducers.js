@@ -101,7 +101,6 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         booksStocks: {
-          isBooksStocksFetched: true,
           ...setBooksStocks(state.booksStocks, action.payload.booksStocks)
         },
       }
