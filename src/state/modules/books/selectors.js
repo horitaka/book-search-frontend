@@ -5,6 +5,7 @@ import { userBookLibrariesSelectors } from '../user-book-libraries'
 const bookItems = state => state.books.items;
 const booksStocks = state => state.books.booksStocks;
 
+const getIsBooksSearching = state => state.books.isBooksSearching;
 export const getSearchQuery = state => state.books.searchQuery;
 export const getPage = state => state.books.page;
 
@@ -73,6 +74,13 @@ const getIsBooksStocksFetchd = (isbn, booksStocks) => {
 
   return booksStocks[isbn]['isBooksStocksFetched']
 }
+
+export const getShouldShowNextButton = createSelector(
+  [getIsBooksSearching, getPage],
+  (isBooksSearching, page) => {
+    return !isBooksSearching && (page >= 1)
+  }
+)
 
 export const getIsbns = createSelector(
   bookItems,

@@ -10,6 +10,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import BookInfo from './BookInfo';
 import Loading from './Loading'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => createStyles({
   root: {
@@ -21,11 +22,17 @@ const useStyles = makeStyles(theme => createStyles({
   },
   errorText: {
     margin: theme.spacing(3, 3, 3, 3)
-  }
+  },
+  nextButton: {
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    }
+  },
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isBooksSearching, error, fetchBooks } = props;
+  const { bookItemsAndStocks, isBooksSearching, error, shouldShowNextButton, fetchBooks } = props;
   const classes = useStyles();
   const containerElement = useRef(null);
 
@@ -38,7 +45,6 @@ function BookInfoList(props) {
   }
 
   const handleScroll = () => {
-    console.log('scroll')
     const bottomPosition = containerElement.current.scrollTop + containerElement.current.clientHeight;
     const height = containerElement.current.scrollHeight;
     if (!isBooksSearching && bottomPosition >= height * 0.9) {
@@ -46,6 +52,9 @@ function BookInfoList(props) {
     }
   }
 
+  const handleNextClick = () => {
+    fetchBooks();
+  }
 
   return (
     <Grid container justify="center" alignItems="stretch" ref={containerElement} onScroll={handleScroll} className={classes.root} >
@@ -60,6 +69,7 @@ function BookInfoList(props) {
             </Box>
           ))}
         </List>
+        {shouldShowNextButton && <Button variant="text" color="secondary" onClick={handleNextClick} className={classes.nextButton}>続きを読み込む</Button>}
         {isBooksSearching && <Loading />}
       </Grid>
     </Grid>

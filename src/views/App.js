@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => createStyles({
   root: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#fdfdfd',
   },
   header: {
     height: '10%',
@@ -30,7 +31,6 @@ const useStyles = makeStyles(theme => createStyles({
   },
   contents: {
     height: '85%',
-    backgroundColor: '#fdfdfd',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
       order: 2,
@@ -66,7 +66,7 @@ function App() {
   return (
     <AppThemeProvider>
       <Router>
-        <Grid className={classes.root} alignItems="stretch" container>
+        <Grid className={classes.root} alignItems="stretch" alignContent="flex-start" container>
           <Toast />
           <Grid className={classes.header} container item xs={12}>
             <Header />

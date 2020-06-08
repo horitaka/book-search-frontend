@@ -6,6 +6,7 @@ state
 books: {
   isInitialState: boolean,
   isBooksSearching: boolean,
+  page: number,
   error: {
     statsuCode: number,
     error:
