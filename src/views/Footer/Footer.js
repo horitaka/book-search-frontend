@@ -30,8 +30,8 @@ const Footer = (props) => {
   return (
     <Grid container direction="row" justify="center" className={classes.root}>
       <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>このサイトについて</Link>
-      <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>利用規約</Link>
-      <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>プライバシーポリシー</Link>
+      {/* <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>利用規約</Link> */}
+      {/* <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>プライバシーポリシー</Link> */}
     </Grid>
   );
 }

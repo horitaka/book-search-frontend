@@ -15,11 +15,17 @@ const useStyles = makeStyles(theme => createStyles({
   header: {
     height: '15%',
     textAlign: 'center',
-    textShadow: '2px 2px 2px rgba(0,0,0,0.3)',
+    // textShadow: '2px 2px 2px rgba(0,0,0,0.3)',
+    [theme.breakpoints.down('sm')]: {
+      height: '30%',
+    }
   },
   media: {
     height: '85%',
     backgroundSize: 'contain',
+    [theme.breakpoints.down('sm')]: {
+      height: '70%',
+    }
   },
 }));
 

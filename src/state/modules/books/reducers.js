@@ -6,6 +6,7 @@ state
 books: {
   isInitialState: boolean,
   isBooksSearching: boolean,
+  page: number,
   error: {
     statsuCode: number,
     error:
@@ -100,7 +101,6 @@ export default function bookSearch(state = initialState, action) {
       return {
         ...state,
         booksStocks: {
-          isBooksStocksFetched: true,
           ...setBooksStocks(state.booksStocks, action.payload.booksStocks)
         },
       }

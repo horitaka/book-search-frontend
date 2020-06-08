@@ -11,8 +11,6 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
 
-// import serviceLogo from '../../images/service-logo.png'
-
 const useStyles = makeStyles(theme => createStyles({
   root: {
     background: theme.palette.primary.main,
@@ -21,20 +19,24 @@ const useStyles = makeStyles(theme => createStyles({
   icon: {
     padding: theme.spacing(0, 2)
   },
-  img: {
-    marginRight: theme.spacing(1),
-    height: '40px',
-    objectFit: 'contain'
-  },
+  // img: {
+  //   marginRight: theme.spacing(1),
+  //   height: '40px',
+  //   objectFit: 'contain'
+  // },
   textFieldContainer: {
-    minWidth: '300px',
+    // minWidth: '250px',
+  },
+  form: {
+    width: '100%',
   },
   textField: {
     background: theme.palette.secondary.contrastText,
     borderRadius: theme.spacing(1),
+    height: '100%',
     '& .MuiOutlinedInput-root': {
       height: '100%',
-    }
+    },
   },
   button: {
     color: theme.palette.secondary.contrastText,
@@ -45,15 +47,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function AppHeader(props) {
-  const { isBooksSearching, history, runBookSearch } = props
+  const { isBooksSearching, isBooksStocksSearching, history, runBookSearch } = props
   const textFieldElement = React.useRef(null);
   const classes = useStyles();
-
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const keyword = textFieldElement.current.value
-    if (keyword !== '' && !isBooksSearching) {
+    if (keyword !== '' && !isBooksSearching && !isBooksStocksSearching) {
       history.push('/books')
       runBookSearch(keyword)
     }
@@ -66,15 +67,16 @@ function AppHeader(props) {
         <Typography variant='h4'>
           <FontAwesomeIcon icon={faBookOpen} color='white' />
         </Typography>
-        {/* <img src={serviceLogo} alt="ロゴ" className={classes.img} /> */}
       </Grid>
 
-      <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
-        <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
+      <Grid container alignItems="stretch" item xs={7} md={4} className={classes.textFieldContainer}>
+        <form onSubmit={handleSearchClick} className={classes.form}>
+          <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
+        </form>
       </Grid>
 
-      <Grid container alignItems="stretch" item xs={1}>
-        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
+      <Grid container alignItems="stretch" item xs={2}>
+        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={(!isBooksSearching && !isBooksStocksSearching) ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>
       </Grid>

@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     // isSucceededSearch: state.books.isSucceededSearch,
     isInitialState: state.books.isInitialState,
     error: state.books.error,
+    shouldShowNextButton: booksSelectors.getShouldShowNextButton(state),
   };
 }
 

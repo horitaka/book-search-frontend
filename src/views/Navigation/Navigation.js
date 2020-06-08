@@ -14,10 +14,17 @@ const useStyles = makeStyles(theme => createStyles({
   root: {
     width: '100%',
     height: '100%',
-    // overflowY: 'scroll'
+    overflowY: 'scroll',
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      overflowY: 'hidden',
+    }
   },
   header: {
-    margin: theme.spacing(2, 0, 0, 1)
+    marginBottom: theme.spacing(2)
+  },
+  newButton: {
+    marginTop: theme.spacing(1)
   },
   linkButton: {
     margin: theme.spacing(0, 0, 0, 1)
@@ -37,47 +44,13 @@ function Navigation(props) {
       <Grid container direction="column" alignItems="flex-start" item xs={12} >
         <Typography variant="h6" className={classes.header}>登録済みの図書館</Typography>
         <UserLibraryList />
-        <Button color="secondary" onClick={handleNewLibraryButtonClicked}>
-          <Typography variant="h6" className={classes.linkButton}>図書館を登録</Typography>
+        <Button color="secondary" onClick={handleNewLibraryButtonClicked} className={classes.newButton}>
+          <Typography variant="h6" className={classes.linkButton}>図書館を追加</Typography>
         </Button>
         <ShareButtons />
       </Grid >
     </Box>
   );
 }
-
-// const VerticalLine = styled.div`
-//   background-color: gray;
-//   width:2px;
-//   flex-grow: 1;
-//   margin: 10px 0;
-// `
-
-// const StyledLink = styled(Link)`
-//   flex: 0 0 auto;
-//   height: ;
-//   margin: 10px 10px 10px 20px;
-//   padding: 0;
-//   border-radius: 3px;
-//   outline: none;
-//   border: none;
-//   text-decoration: none;
-
-//   :active {
-//     background: ;
-//     color: ${Colors.primaryColor};
-//     outline: none;
-//   }
-
-//   font-size: ${Fonts.fontLarge}px;
-//   color: ${Colors.accentColor};
-// `
-
-// const HeaderText = styled(Text)`
-//   flex: 0 0 auto;
-//   margin: 10px;
-//   font-size: ${Fonts.fontLarge + 'px'};
-//   font-weight: bold;
-// `
 
 export default withRouter(Navigation);

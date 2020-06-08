@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,56 +17,85 @@ const useStyles = makeStyles(theme => createStyles({
     fontWeight: 'bold',
   },
   img: {
-    maxWidth: '100px',
+    maxWidth: '90%',
     height: 'auto'
+  },
+  link: {
+
+  },
+  linkDisabled: {
+    color: theme.palette.text.disabled,
+    cursor: 'auto',
   }
 
 }));
 
-const BookLibraryStocks = (props) => {
-  const { bookInfo } = props
-  const generateStockStatus = (isOwned, canBeRend) => {
-    let bookStockStatus = '';
-
-    if (bookInfo.isbn === 0) {
-      return '蔵書なし'
-    }
-    if (!bookInfo.isBooksStocksFetched) {
-      return '検索中'
-    }
-    if (isOwned) {
-      if (canBeRend) {
-        bookStockStatus = '貸出可'
-      } else {
-        bookStockStatus = '貸出中'
-      }
-    } else {
-      bookStockStatus = '蔵書なし'
-    }
-    return bookStockStatus
+const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => {
+  if (isbn === 0) {
+    return '蔵書なし'
   }
 
+  if (!isBooksStocksFetched) {
+    return '検索中'
+  }
+
+  if (!isOwned) {
+    return '蔵書なし'
+  }
+
+  if (canBeRend) {
+    return '貸出可'
+  } else {
+    return '貸出中'
+  }
+
+}
+
+const BookLibraryStocks = (props) => {
+  const { bookInfo, classes } = props
+
+  const amazonLink = `https://www.amazon.co.jp/s?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&ref=nb_sb_noss&k=${bookInfo.isbn || bookInfo.title}`
+  const rakutenLink = `https://books.rakuten.co.jp/search?g=000&l-id=pc-search-box&x=0&y=0&sitem=${bookInfo.isbn || bookInfo.title}`
+
   return (
-    <List>
+    <List dense>
       {
         bookInfo.stocksByLibrary.map(stock => {
-          const bookStockStatus = generateStockStatus(stock.isOwned, stock.canBeRend);
+          const bookStockStatus = generateStockStatus(bookInfo.isBooksStocksFetched, bookInfo.isbn, stock.isOwned, stock.canBeRend);
+
           return (
             <ListItem key={stock.libraryId}>
               <Grid container justify="flex-start" alignItems="center">
-                <Grid item xs={9}>
-                  <Typography variant="body2">{stock.libraryName}</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  {stock.isOwned
-                    ? <Link href={stock.bookRentalUrl} target="_blank" rel="noreferrer noopener" >{bookStockStatus}</Link>
-                    : <Typography variant="body2">{bookStockStatus}</Typography>}
-                </Grid>
+                <Link
+                  variant="body2" component="a" color="secondary"
+                  underline={stock.isOwned ? 'hover' : 'none'}
+                  href={stock.bookRentalUrl} target="_blank" rel="noreferrer noopener"
+                  className={stock.isOwned ? classes.link : classes.linkDisabled}>
+                  {stock.libraryName + '　' + bookStockStatus}
+                </Link>
               </Grid>
             </ListItem>
           )
         })
       }
+      <ListItem >
+        <Grid container justify="flex-start" alignItems="center">
+          <Link
+            variant="body2" component="a" color="secondary"
+            href={amazonLink} target="_blank" rel="noreferrer noopener">
+            Amazon
+          </Link>
+        </Grid>
+      </ListItem>
+      <ListItem >
+        <Grid container justify="flex-start" alignItems="center">
+          <Link
+            variant="body2" component="a" color="secondary"
+            href={rakutenLink} target="_blank" rel="noreferrer noopener">
+            楽天Books
+          </Link>
+        </Grid>
+      </ListItem>
     </List>
   )
 }
@@ -79,65 +106,35 @@ function BookInfo(props) {
 
   const bookImage = bookInfo.imageUrl ? bookInfo.imageUrl : defaultBookImage;
   return (
-    <Grid container justify="flex-start" alignItems="flex-start" className={classes.root}>
+    <Grid container justify="flex-start" alignItems="flex-start" spacing={1} className={classes.root}>
       <Grid item xs={3}>
         <img src={bookImage} alt={bookInfo.title} className={classes.img} />
       </Grid>
       <Grid item xs={9}>
         <Typography variant="body1" className={classes.title}>{bookInfo.title}</Typography>
         <Typography variant="body2" >{Array.isArray(bookInfo.authors) && bookInfo.authors.join(', ')}</Typography>
-        <BookLibraryStocks bookInfo={bookInfo} />
-        <Grid container justify="flex-start" spacing={1}>
-          <Grid item xs={3}>
-            <Button variant="contained" color="secondary" fullWidth>Amazon</Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button variant="contained" color="secondary" fullWidth>楽天Books</Button>
-          </Grid>
-        </Grid>
+        <BookLibraryStocks bookInfo={bookInfo} classes={classes} />
       </Grid>
     </Grid>
   );
 }
 
-BookInfo.propTypes = {
-  bookInfo: PropTypes.shape({
-    imageUrl: PropTypes.string,
-    title: PropTypes.string,
-    authors: PropTypes.arrayOf(PropTypes.string),
-    isbn: PropTypes.number.isRequired,
-    stocksByLibrary: PropTypes.arrayOf(
-      PropTypes.shape({
-        libraryId: PropTypes.string.isRequired,
-        libraryName: PropTypes.string.isRequired,
-        bookRentalUrl: PropTypes.string,
-        isOwned: PropTypes.bool,
-        canBeRend: PropTypes.bool,
-      })
-    ),
-  }).isRequired
-}
-
-// const LibraryNameText = styled(Text)`
-//   flex: 2 1 0;
-//   font-size: ${Fonts.fontMedium};
-// `
-
-// const BookTitleText = styled(Text)`
-//   font-weight: bold;
-//   font-size: ${Fonts.fontLarge + 'px'};
-// `
-
-// const BookAuthorsText = styled(Text)`
-//   margin: 0 0 20px 0;
-//   font-size: ${Fonts.fontMedium + 'px'};
-// `
-
-// const BookRentalLink = styled(Link)`
-//   color: ${Colors.accentColor};
-//   font-weight: bold;
-// `
-// BookRentalLink.displayName = 'BookRentalLink';
-
+// BookInfo.propTypes = {
+//   bookInfo: PropTypes.shape({
+//     imageUrl: PropTypes.string,
+//     title: PropTypes.string,
+//     authors: PropTypes.arrayOf(PropTypes.string),
+//     isbn: PropTypes.number.isRequired,
+//     stocksByLibrary: PropTypes.arrayOf(
+//       PropTypes.shape({
+//         libraryId: PropTypes.string.isRequired,
+//         libraryName: PropTypes.string.isRequired,
+//         bookRentalUrl: PropTypes.string,
+//         isOwned: PropTypes.bool,
+//         canBeRend: PropTypes.bool,
+//       })
+//     ),
+//   }).isRequired
+// }
 
 export default BookInfo;

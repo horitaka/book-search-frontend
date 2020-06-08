@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: '30%',
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(2),
       height: '150px',
     },
     backgroundImage: `url(${serviceTextBackground})`,
@@ -48,8 +49,8 @@ function ServiceIntroduction() {
   const classes = useStyles()
 
   const serviceIntroductionText = '図書館で本を借りることも、ECサイトで本を買うこともこのサイトで簡単に！'
-  const salesPointText1 = '1. 図書館の在庫をかんたんに検索'
-  const salesPointText2 = '2. 図書館になければそのまま購入'
+  const salesPointText1 = '普段使う図書館の在庫をかんたんに検索'
+  const salesPointText2 = '図書館にない本はAmazonや楽天で購入'
 
   return (
     <Grid container justify="center" alignItems="stretch" alignContent="space-around" className={classes.root}>

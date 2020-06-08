@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   libraryItem: {
     margin: theme.spacing(0, 2, 0, 0),
   },
+  button: {
+    margin: theme.spacing(1, 0, 1, 0)
+  }
 }));
 
 function LibraryList(props) {
@@ -43,14 +46,14 @@ function LibraryList(props) {
             <Box key={library.libraryId}>
               <ListItem>
                 <Grid container direction="row" justify="center" alignItems="center" >
-                  <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={9} className={classes.libraryItem}>
+                  <Grid container direction="column" justify="flex-start" alignItems="flex-start" item xs={11} md={9} className={classes.libraryItem}>
                     <Link href={library.librarySiteUrl} target="_blank" rel="noopener noreferrer">{library.libraryName}</Link>
                     <Typography variant="body2">{library.branches.join(', ')}</Typography>
                   </Grid>
-                  <Grid container direction="column" justify="flex-start" alignItems="center" item xs={2}>
+                  <Grid container direction="column" justify="flex-start" alignItems="center" item xs={11} md={2}>
                     {library.isRegistered
-                      ? <Button color="primary" variant="contained" size="large" fullWidth disabled>登録済み</Button>
-                      : <Button color="primary" variant="contained" size="large" fullWidth onClick={() => handleLibraryAddClick(library)}>登録</Button>}
+                      ? <Button color="primary" variant="contained" size="medium" fullWidth disabled className={classes.button}>登録済み</Button>
+                      : <Button color="primary" variant="contained" size="medium" fullWidth onClick={() => handleLibraryAddClick(library)} className={classes.button}>登録</Button>}
                   </Grid>
                 </Grid>
               </ListItem>
