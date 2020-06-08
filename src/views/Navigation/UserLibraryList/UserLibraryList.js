@@ -67,7 +67,7 @@ function UserLibraryList({ libraryList, onDeleteClicked }) {
 
           <Collapse in={isOpens[index]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <Button color="primary" onClick={() => handleDeleteClick(library)} className={classes.nesstedItem}>削除</Button>
+              <Button color="primary" onClick={() => handleDeleteClick(library)} className={classes.nesstedItem}>登録解除</Button>
               {library.branches.map(branch => (
                 <ListItem dense key={branch} className={classes.nesstedItem}>
                   <Typography variant="body2">{branch}</Typography>

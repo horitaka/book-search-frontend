@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: '30%',
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(2),
       height: '150px',
     },
     backgroundImage: `url(${serviceTextBackground})`,
