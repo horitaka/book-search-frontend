@@ -16,20 +16,31 @@ export default function configuStore() {
     books: booksReducer,
   });
 
+  let middlewares = [];
+
   const sagaMiddleware = createSagaMiddleware();
+  middlewares.push(sagaMiddleware)
 
-  const loggerMiddleware = createLogger({
-    collapsed: true,
-    diff: true,
-  });
+  if (process.env.NODE_ENV === 'development') {
+    const loggerMiddleware = createLogger({
+      collapsed: true,
+      diff: true,
+    });
+    middlewares.push(loggerMiddleware)
+  }
 
-  const composeEnhancers =
-    (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true })) ||
-    compose;
+  let composeEnhancers;
+  if (process.env.NODE_ENV === 'development') {
+    composeEnhancers =
+      (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true })) ||
+      compose;
+  } else {
+    composeEnhancers = compose;
+  }
 
   const store = createStore(
     rootReducers,
-    composeEnhancers(applyMiddleware(sagaMiddleware, loggerMiddleware))
+    composeEnhancers(applyMiddleware(...middlewares))
   )
 
   sagaMiddleware.run(rootSaga);
