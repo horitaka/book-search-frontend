@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => createStyles({
     height: '100%',
     overflowY: 'scroll',
     [theme.breakpoints.down('sm')]: {
-      overflowY: 'hidden',
+      overflowY: 'visible',
     }
   },
   errorText: {
@@ -38,17 +38,18 @@ function BookInfoList(props) {
   }
 
   const handleScroll = () => {
+    console.log('scroll')
     const bottomPosition = containerElement.current.scrollTop + containerElement.current.clientHeight;
     const height = containerElement.current.scrollHeight;
     if (!isBooksSearching && bottomPosition >= height * 0.9) {
-      console.log('bottom')
       fetchBooks();
     }
   }
 
+
   return (
     <Grid container justify="center" alignItems="stretch" ref={containerElement} onScroll={handleScroll} className={classes.root} >
-      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={11} md={8}>
+      <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={12} md={8}>
         <List>
           {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.title + bookInfo.isbn}>

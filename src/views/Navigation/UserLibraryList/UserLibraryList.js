@@ -44,7 +44,7 @@ function UserLibraryList({ libraryList, onDeleteClicked }) {
   };
 
   const handleDeleteClick = (library) => {
-    showToast('削除しました');
+    showToast('登録を解除しました');
     setOpens(new Array(libraryList.length).fill(false))
     onDeleteClicked(library);
   }

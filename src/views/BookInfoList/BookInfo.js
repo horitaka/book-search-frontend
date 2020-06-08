@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => createStyles({
     fontWeight: 'bold',
   },
   img: {
-    maxWidth: '100px',
+    maxWidth: '90%',
     height: 'auto'
   },
   link: {
@@ -106,7 +106,7 @@ function BookInfo(props) {
 
   const bookImage = bookInfo.imageUrl ? bookInfo.imageUrl : defaultBookImage;
   return (
-    <Grid container justify="flex-start" alignItems="flex-start" className={classes.root}>
+    <Grid container justify="flex-start" alignItems="flex-start" spacing={1} className={classes.root}>
       <Grid item xs={3}>
         <img src={bookImage} alt={bookInfo.title} className={classes.img} />
       </Grid>

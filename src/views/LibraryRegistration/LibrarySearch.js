@@ -12,6 +12,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { prefectureList } from './prefectureList'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(0, 1)
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -50,7 +53,7 @@ function LibrarySearch({ searchLibrary, onKeywordChanged }) {
   }
 
   return (
-    <Grid container direction="row" justify="space-between" alignItems="center" item>
+    <Grid container direction="row" justify="space-between" alignItems="center" item className={classes.root}>
       <Grid item xs={5}>
         <FormControl fullWidth className={classes.formControl}>
           <InputLabel htmlFor="input-label">都道府県</InputLabel>

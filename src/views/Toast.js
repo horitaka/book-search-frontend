@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export class Toast extends Component {
   notify = () => toast("Wow so easy !");
 
-  render(){
+  render() {
     return (
       <ToastContainer
         position="bottom-center"
@@ -26,7 +26,7 @@ export class Toast extends Component {
 }
 
 export function showToast(message) {
-  toast(message, {
+  toast.success(message, {
     position: "bottom-center",
     autoClose: 3000,
     hideProgressBar: true,

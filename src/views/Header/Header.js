@@ -19,13 +19,13 @@ const useStyles = makeStyles(theme => createStyles({
   icon: {
     padding: theme.spacing(0, 2)
   },
-  img: {
-    marginRight: theme.spacing(1),
-    height: '40px',
-    objectFit: 'contain'
-  },
+  // img: {
+  //   marginRight: theme.spacing(1),
+  //   height: '40px',
+  //   objectFit: 'contain'
+  // },
   textFieldContainer: {
-    minWidth: '300px',
+    // minWidth: '250px',
   },
   form: {
     width: '100%',
@@ -79,13 +79,13 @@ function AppHeader(props) {
         </Typography>
       </Grid>
 
-      <Grid container alignItems="stretch" item xs={4} className={classes.textFieldContainer}>
+      <Grid container alignItems="stretch" item xs={7} md={4} className={classes.textFieldContainer}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField variant="outlined" fullWidth size="small" color="secondary" placeholder="本を検索..." inputRef={textFieldElement} className={classes.textField} />
         </form>
       </Grid>
 
-      <Grid container alignItems="stretch" item xs={1}>
+      <Grid container alignItems="stretch" item xs={2}>
         <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>

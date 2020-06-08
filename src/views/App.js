@@ -23,20 +23,23 @@ const useStyles = makeStyles(theme => createStyles({
   },
   header: {
     height: '10%',
-    // background: '#03A9F4',
+    [theme.breakpoints.down('sm')]: {
+      height: '13%',
+      order: 1,
+    }
   },
   contents: {
     height: '85%',
     backgroundColor: '#fdfdfd',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
-      order: 1,
+      order: 2,
     }
   },
   navigation: {
     height: '100%',
     [theme.breakpoints.down('sm')]: {
-      order: 2,
+      order: 3,
       height: 'auto',
     }
   },
@@ -51,7 +54,7 @@ const useStyles = makeStyles(theme => createStyles({
     height: '5%',
     background: 'yellow',
     [theme.breakpoints.down('sm')]: {
-      order: 3,
+      order: 4,
     }
   }
 }));
