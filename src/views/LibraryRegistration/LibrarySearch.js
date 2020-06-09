@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LibrarySearch({ searchLibrary, onKeywordChanged }) {
+function LibrarySearch({ keyword, searchLibrary, changeKeyword }) {
   const defaultPrefecture = '東京都'
   const [prefecture, setPrefecture] = useState(defaultPrefecture)
   const classes = useStyles();
@@ -36,7 +36,7 @@ function LibrarySearch({ searchLibrary, onKeywordChanged }) {
     })
   })
 
-  const onKeywordChangedDebounced = debounce(onKeywordChanged, 500);
+  const onKeywordChangedDebounced = debounce(changeKeyword, 500);
 
   useEffect(() => {
     searchLibrary(defaultPrefecture)
@@ -71,7 +71,7 @@ function LibrarySearch({ searchLibrary, onKeywordChanged }) {
         </FormControl>
       </Grid>
       <Grid item xs={5}>
-        <TextField id="search-input" label="図書館を検索..." fullWidth onChange={handleKeywordChange} />
+        <TextField id="search-input" defaultValue={keyword} label="図書館を検索..." fullWidth onChange={handleKeywordChange} />
       </Grid>
     </Grid>
   )
@@ -79,7 +79,7 @@ function LibrarySearch({ searchLibrary, onKeywordChanged }) {
 
 LibrarySearch.propTypes = {
   searchLibrary: PropTypes.func.isRequired,
-  onKeywordChanged: PropTypes.func.isRequired,
+  changeKeyword: PropTypes.func.isRequired,
 }
 
 

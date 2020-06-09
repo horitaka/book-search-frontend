@@ -6,9 +6,10 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import AppThemeProvider from './AppThemeProvider'
 import Header from './Header'
-import Navigation from './Navigation/Navigation'
+import Navigation from './Navigation'
 import Footer from './Footer/Footer'
 import { Toast } from './Toast';
+import ScrollToTop from './ScrollToTop';
 import LibraryRegistration from './LibraryRegistration';
 import BookInfoList from './BookInfoList';
 import ServiceIntroduction from './ServiceIntroduction/ServiceIntroduction';
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => createStyles({
     height: '10%',
     [theme.breakpoints.down('sm')]: {
       height: '13%',
+      minHeight: '80px',
       order: 1,
     }
   },
@@ -54,6 +56,7 @@ const useStyles = makeStyles(theme => createStyles({
     background: 'yellow',
     [theme.breakpoints.down('sm')]: {
       order: 4,
+      height: 'auto',
     }
   }
 }));
@@ -66,6 +69,7 @@ function App() {
     <AppThemeProvider>
       <Router>
         <Grid className={classes.root} alignItems="stretch" alignContent="flex-start" container>
+          <ScrollToTop />
           <Toast />
           <Grid className={classes.header} container item xs={12}>
             <Header />

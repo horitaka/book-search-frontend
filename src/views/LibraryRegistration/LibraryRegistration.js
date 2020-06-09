@@ -22,19 +22,20 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function LibraryRegistration(props) {
-  const { isInitialState, isSucceededRegistration, libraryList, error, onLibraryAddClickd, searchLibrary, onKeywordChanged } = props
+  const { keyword, isInitialState, isSucceededRegistration, libraryList, error, addLibrary, searchLibrary, changeKeyword } = props
   const classes = useStyles();
 
   return (
     <Grid container direction="row" justify="center" alignItems="stretch" className={classes.root}>
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={12} md={8} className={classes.header}>
         <LibrarySearch
+          keyword={keyword}
           searchLibrary={searchLibrary}
-          onKeywordChanged={onKeywordChanged}
+          changeKeyword={changeKeyword}
         />
         <LibraryList
           libraryList={libraryList}
-          onLibraryAddClickd={onLibraryAddClickd}
+          addLibrary={addLibrary}
           isInitialState={isInitialState}
           isSucceededRegistration={isSucceededRegistration}
           error={error}
@@ -48,9 +49,9 @@ LibraryRegistration.propTypes = {
   isInitialState: PropTypes.bool.isRequired,
   isSucceededRegistration: PropTypes.bool.isRequired,
   libraryList: LibraryList.propTypes.libraryList,
-  onLibraryAddClickd: PropTypes.func.isRequired,
+  addLibrary: PropTypes.func.isRequired,
   searchLibrary: PropTypes.func.isRequired,
-  onKeywordChanged: PropTypes.func.isRequired,
+  changeKeyword: PropTypes.func.isRequired,
 }
 
 export default LibraryRegistration;

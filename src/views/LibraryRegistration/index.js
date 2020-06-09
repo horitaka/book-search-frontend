@@ -11,14 +11,15 @@ const mapStateToProps = (state, ownProps) => {
     isSucceededRegistration: state.bookLibraries.isSucceededRegistration,
     libraryList: bookLibrariesSelectors.getLibraryList(state),
     error: state.bookLibraries.error,
+    keyword: state.bookLibraries.keyword,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onLibraryAddClickd: (library) => dispatch(userBookLibrariesOperations.addLibrary(library)),
+    addLibrary: (library) => dispatch(userBookLibrariesOperations.addLibrary(library)),
     searchLibrary: (prefecture) => dispatch(bookLibrariesOperations.searchLibrary(prefecture)),
-    onKeywordChanged: (keyword) => dispatch(bookLibrariesOperations.changeKeyword(keyword))
+    changeKeyword: (keyword) => dispatch(bookLibrariesOperations.changeKeyword(keyword))
   }
 }
 
