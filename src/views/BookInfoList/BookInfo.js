@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Link from '@material-ui/core/Link'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
+import BookDetailLink from './BookDetailLink'
 import defaultBookImage from '../../images/no-book-image.jpg'
 
 const useStyles = makeStyles(theme => createStyles({
@@ -55,7 +56,7 @@ const BookLibraryStocks = (props) => {
   const { bookInfo, classes } = props
 
   const amazonLink = `https://www.amazon.co.jp/s?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&ref=nb_sb_noss&k=${bookInfo.isbn || bookInfo.title}`
-  const rakutenLink = `https://books.rakuten.co.jp/search?g=000&l-id=pc-search-box&x=0&y=0&sitem=${bookInfo.isbn || bookInfo.title}`
+  const rakutenLink = bookInfo.rakutenAffiliateUrl
 
   return (
     <List dense>
@@ -65,36 +66,28 @@ const BookLibraryStocks = (props) => {
 
           return (
             <ListItem key={stock.libraryId}>
-              <Grid container justify="flex-start" alignItems="center">
-                <Link
-                  variant="body2" component="a" color="secondary"
-                  underline={stock.isOwned ? 'hover' : 'none'}
-                  href={stock.bookRentalUrl} target="_blank" rel="noreferrer noopener"
-                  className={stock.isOwned ? classes.link : classes.linkDisabled}>
-                  {stock.libraryName + '　' + bookStockStatus}
-                </Link>
-              </Grid>
+              <BookDetailLink
+                linkText={stock.libraryName + '　' + bookStockStatus}
+                linkUrl={stock.bookRentalUrl}
+                hasLink={stock.isOwned}
+              />
             </ListItem>
           )
         })
       }
       <ListItem >
-        <Grid container justify="flex-start" alignItems="center">
-          <Link
-            variant="body2" component="a" color="secondary"
-            href={amazonLink} target="_blank" rel="noreferrer noopener">
-            Amazon
-          </Link>
-        </Grid>
+        <BookDetailLink
+          linkText={'Amazon'}
+          linkUrl={amazonLink}
+          hasLink={true}
+        />
       </ListItem>
       <ListItem >
-        <Grid container justify="flex-start" alignItems="center">
-          <Link
-            variant="body2" component="a" color="secondary"
-            href={rakutenLink} target="_blank" rel="noreferrer noopener">
-            楽天Books
-          </Link>
-        </Grid>
+        <BookDetailLink
+          linkText={'楽天Books'}
+          linkUrl={rakutenLink}
+          hasLink={rakutenLink ? true : false}
+        />
       </ListItem>
     </List>
   )
