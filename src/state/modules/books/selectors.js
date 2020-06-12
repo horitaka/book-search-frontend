@@ -21,6 +21,7 @@ export const getBookItemsAndStocks = createSelector(
         ...item,
         stocksByLibrary: getStocksByLibrary(item.isbn, booksStocks, userBookLibraries),
         isBooksStocksFetched: getIsBooksStocksFetchd(item.isbn, booksStocks),
+        isTimeout: getIsTimeout(item.isbn, booksStocks),
       }
       return result
     })
@@ -71,8 +72,14 @@ const getIsBooksStocksFetchd = (isbn, booksStocks) => {
   if (!booksStocks[isbn] || !booksStocks[isbn]['isBooksStocksFetched']) {
     return false
   }
-
   return booksStocks[isbn]['isBooksStocksFetched']
+}
+
+const getIsTimeout = (isbn, booksStocks) => {
+  if (!booksStocks[isbn] || !booksStocks[isbn]['isTimeout']) {
+    return false
+  }
+  return booksStocks[isbn]['isTimeout']
 }
 
 export const getShouldShowNextButton = createSelector(

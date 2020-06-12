@@ -30,9 +30,13 @@ const useStyles = makeStyles(theme => createStyles({
 
 }));
 
-const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => {
+const generateStockStatus = (isBooksStocksFetched, isTimeout, isbn, isOwned, canBeRend) => {
   if (isbn === 0) {
     return '蔵書なし'
+  }
+
+  if (isTimeout) {
+    return '検索エラー'
   }
 
   if (!isBooksStocksFetched) {
@@ -54,14 +58,14 @@ const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => 
 const BookLibraryStocks = (props) => {
   const { bookInfo } = props
 
-  const amazonLink = `https://www.amazon.co.jp/s?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&ref=nb_sb_noss&k=${bookInfo.isbn || bookInfo.title}`
+  const amazonLink = `https://www.amazon.co.jp/gp/search?ie=UTF8&tag=booksearch0e3-22&linkCode=ur2&linkId=065e3e9f2b175cb20eb82ded8942cae1&camp=247&creative=1211&index=books&keywords=${bookInfo.isbn || bookInfo.title}`
   const rakutenLink = bookInfo.rakutenAffiliateUrl
 
   return (
     <List dense>
       {
         bookInfo.stocksByLibrary.map(stock => {
-          const bookStockStatus = generateStockStatus(bookInfo.isBooksStocksFetched, bookInfo.isbn, stock.isOwned, stock.canBeRend);
+          const bookStockStatus = generateStockStatus(bookInfo.isBooksStocksFetched, bookInfo.isTimeout, bookInfo.isbn, stock.isOwned, stock.canBeRend);
 
           return (
             <ListItem key={stock.libraryId}>

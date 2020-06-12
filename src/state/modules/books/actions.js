@@ -24,6 +24,12 @@ export function runBookSearchFail(error) {
   }
 }
 
+export function runBookSearchTimeout() {
+  return {
+    type: types.RUN_BOOK_SEARCH_TIMEOUT,
+  }
+}
+
 
 export function fetchBooks() {
   return {

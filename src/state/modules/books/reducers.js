@@ -43,7 +43,7 @@ const initialState = {
   isInitialState: true,
   isBooksSearching: false,
   searchQuery: '',
-  page: 0,
+  page: 1,
   items: [],
   booksStocks: {},
   error: {}
@@ -56,7 +56,7 @@ export default function bookSearch(state = initialState, action) {
         ...state,
         isInitialState: false,
         searchQuery: action.payload.searchQuery,
-        page: 0,
+        page: 1,
         items: [],
         booksStocks: {},
         error: {}
@@ -75,6 +75,15 @@ export default function bookSearch(state = initialState, action) {
         items: [],
         booksStocks: {},
         error: action.payload.error,
+      }
+    case types.RUN_BOOK_SEARCH_TIMEOUT:
+      return {
+        ...state,
+        isInitialState: false,
+        isBooksSearching: false,
+        booksStocks: {
+          ...setBooksStocksTimeout(state.booksStocks)
+        }
       }
     case types.FETCH_BOOKS_REQUEST:
       return {
@@ -135,4 +144,16 @@ const setBooksStocks = (currentBooksStocks, fetchedBooksStocks) => {
   });
 
   return newBooksStocks
+}
+
+export const setBooksStocksTimeout = (booksStocks) => {
+  let newBooksStocks = { ...booksStocks }
+  const isbns = Object.keys(booksStocks);
+  isbns.forEach(isbn => {
+    if (newBooksStocks[isbn]['isBooksStocksFetched'] === false) {
+      newBooksStocks[isbn]['isTimeout'] = true;
+    }
+  })
+
+  return newBooksStocks;
 }

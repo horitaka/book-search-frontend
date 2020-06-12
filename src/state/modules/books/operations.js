@@ -3,7 +3,7 @@ import { fork, call, put, select, take, takeEvery, race } from 'redux-saga/effec
 import * as api from '../../util/api'
 import * as types from './types'
 import {
-  runBookSearch, runBookSearchSuccess, runBookSearchFail,
+  runBookSearch, runBookSearchSuccess, runBookSearchFail, runBookSearchTimeout,
   fetchBooks, fetchBooksSuccess,
   fetchBooksStocks, fetchBooksStocksSuccess,
   cancelFetchingBooksStocks, cancelFetchingBooksStocksDone
@@ -60,6 +60,10 @@ export function* searchBookSaga() {
     yield put(fetchBooksStocksSuccess(booksStocks))
     yield put(runBookSearchSuccess())
   } catch (error) {
-    yield put(runBookSearchFail(error))
+    if (error.statusCode) {
+      yield put(runBookSearchTimeout())
+    } else {
+      yield put(runBookSearchFail(error))
+    }
   }
 }

@@ -8,7 +8,7 @@ const bookInfo = {
   title: 'Java Script',
   authors: ['デイビッドフラナガン'],
   isbn: 9784798052588,
-  stockByLibrary:[{
+  stockByLibrary: [{
     libraryID: 'Tokyo_Arakawa',
     libraryName: '東京都荒川区',
     prefecture: '東京都',
@@ -18,7 +18,7 @@ const bookInfo = {
     bookRentalUrl: '',
     isOwned: true,
     canBeRend: true,
-  },{
+  }, {
     libraryID: 'Tokyo_Bunkyo',
     libraryName: '東京都文京区',
     prefecture: '東京都',
@@ -33,12 +33,12 @@ const bookInfo = {
 
 const bookInfoNotOwned = {
   ...bookInfo,
-  stockByLibrary: [{...bookInfo.stockByLibrary[0], isOwned: false}]
+  stockByLibrary: [{ ...bookInfo.stockByLibrary[0], isOwned: false }]
 }
 
 const bookInfoBorrowed = {
   ...bookInfo,
-  stockByLibrary: [{...bookInfo.stockByLibrary[0], canBeRend: false}]
+  stockByLibrary: [{ ...bookInfo.stockByLibrary[0], canBeRend: false }]
 }
 
 export default {
