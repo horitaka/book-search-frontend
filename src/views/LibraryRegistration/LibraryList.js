@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LibraryList(props) {
-  const { libraryList, onLibraryAddClickd, isInitialState, error } = props;
+  const { libraryList, addLibrary, isInitialState, error } = props;
   const classes = useStyles();
 
   if (isInitialState) {
@@ -68,7 +68,7 @@ function LibraryList(props) {
 
   function handleLibraryAddClick(library) {
     showToast('登録しました')
-    onLibraryAddClickd(library);
+    addLibrary(library);
   }
 
   return (
@@ -92,7 +92,7 @@ LibraryList.propTypes = {
       isRegistered: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  onLibraryAddClickd: PropTypes.func.isRequired,
+  addLibrary: PropTypes.func.isRequired,
   isInitialState: PropTypes.bool.isRequired,
 }
 

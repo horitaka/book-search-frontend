@@ -24,6 +24,12 @@ export function runBookSearchFail(error) {
   }
 }
 
+export function runBookSearchTimeout() {
+  return {
+    type: types.RUN_BOOK_SEARCH_TIMEOUT,
+  }
+}
+
 
 export function fetchBooks() {
   return {
@@ -53,5 +59,17 @@ export function fetchBooksStocksSuccess(booksStocks) {
     payload: {
       booksStocks: booksStocks,
     }
+  }
+}
+
+export function cancelFetchingBooksStocks() {
+  return {
+    type: types.CANCEL_FETCHING_BOOKS_STOCKS,
+  }
+}
+
+export function cancelFetchingBooksStocksDone() {
+  return {
+    type: types.CANCEL_FETCHING_BOOKS_STOCKS_DONE,
   }
 }

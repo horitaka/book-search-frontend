@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Link from '@material-ui/core/Link'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
+import BookDetailLink from './BookDetailLink'
 import defaultBookImage from '../../images/no-book-image.jpg'
 
 const useStyles = makeStyles(theme => createStyles({
@@ -30,9 +30,13 @@ const useStyles = makeStyles(theme => createStyles({
 
 }));
 
-const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => {
+const generateStockStatus = (isBooksStocksFetched, isTimeout, isbn, isOwned, canBeRend) => {
   if (isbn === 0) {
     return '蔵書なし'
+  }
+
+  if (isTimeout) {
+    return '検索エラー'
   }
 
   if (!isBooksStocksFetched) {
@@ -52,49 +56,41 @@ const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => 
 }
 
 const BookLibraryStocks = (props) => {
-  const { bookInfo, classes } = props
+  const { bookInfo } = props
 
-  const amazonLink = `https://www.amazon.co.jp/s?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&ref=nb_sb_noss&k=${bookInfo.isbn || bookInfo.title}`
-  const rakutenLink = `https://books.rakuten.co.jp/search?g=000&l-id=pc-search-box&x=0&y=0&sitem=${bookInfo.isbn || bookInfo.title}`
+  const amazonLink = `https://www.amazon.co.jp/gp/search?ie=UTF8&tag=booksearch0e3-22&linkCode=ur2&linkId=065e3e9f2b175cb20eb82ded8942cae1&camp=247&creative=1211&index=books&keywords=${bookInfo.isbn || bookInfo.title}`
+  const rakutenLink = bookInfo.rakutenAffiliateUrl
 
   return (
     <List dense>
       {
         bookInfo.stocksByLibrary.map(stock => {
-          const bookStockStatus = generateStockStatus(bookInfo.isBooksStocksFetched, bookInfo.isbn, stock.isOwned, stock.canBeRend);
+          const bookStockStatus = generateStockStatus(bookInfo.isBooksStocksFetched, bookInfo.isTimeout, bookInfo.isbn, stock.isOwned, stock.canBeRend);
 
           return (
             <ListItem key={stock.libraryId}>
-              <Grid container justify="flex-start" alignItems="center">
-                <Link
-                  variant="body2" component="a" color="secondary"
-                  underline={stock.isOwned ? 'hover' : 'none'}
-                  href={stock.bookRentalUrl} target="_blank" rel="noreferrer noopener"
-                  className={stock.isOwned ? classes.link : classes.linkDisabled}>
-                  {stock.libraryName + '　' + bookStockStatus}
-                </Link>
-              </Grid>
+              <BookDetailLink
+                linkText={stock.libraryName + '　' + bookStockStatus}
+                linkUrl={stock.bookRentalUrl}
+                hasLink={stock.isOwned}
+              />
             </ListItem>
           )
         })
       }
       <ListItem >
-        <Grid container justify="flex-start" alignItems="center">
-          <Link
-            variant="body2" component="a" color="secondary"
-            href={amazonLink} target="_blank" rel="noreferrer noopener">
-            Amazon
-          </Link>
-        </Grid>
+        <BookDetailLink
+          linkText={'Amazon'}
+          linkUrl={amazonLink}
+          hasLink={true}
+        />
       </ListItem>
       <ListItem >
-        <Grid container justify="flex-start" alignItems="center">
-          <Link
-            variant="body2" component="a" color="secondary"
-            href={rakutenLink} target="_blank" rel="noreferrer noopener">
-            楽天Books
-          </Link>
-        </Grid>
+        <BookDetailLink
+          linkText={'楽天Books'}
+          linkUrl={rakutenLink}
+          hasLink={rakutenLink ? true : false}
+        />
       </ListItem>
     </List>
   )
