@@ -1,12 +1,11 @@
 import { connect } from 'react-redux'
 
 import Header from './Header'
-import { booksOperations, booksSelectors } from '../../state/modules/books'
+import { booksOperations } from '../../state/modules/books'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     isBooksSearching: state.books.isBooksSearching,
-    isBooksStocksSearching: booksSelectors.getIsBooksStocksSearching(state),
   };
 }
 

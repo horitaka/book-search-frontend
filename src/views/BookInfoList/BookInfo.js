@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Link from '@material-ui/core/Link'
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import BookDetailLink from './BookDetailLink'
@@ -53,7 +52,7 @@ const generateStockStatus = (isBooksStocksFetched, isbn, isOwned, canBeRend) => 
 }
 
 const BookLibraryStocks = (props) => {
-  const { bookInfo, classes } = props
+  const { bookInfo } = props
 
   const amazonLink = `https://www.amazon.co.jp/s?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&ref=nb_sb_noss&k=${bookInfo.isbn || bookInfo.title}`
   const rakutenLink = bookInfo.rakutenAffiliateUrl

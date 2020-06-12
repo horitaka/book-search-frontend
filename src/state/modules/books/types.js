@@ -9,3 +9,5 @@ export const FETCH_BOOKS_FAIL = 'book-search/books/FETCH_BOOKS_FAIL';
 export const FETCH_BOOKS_STOCKS_REQUEST = 'book-search/books/FETCH_BOOKS_STOCKS_REQUEST';
 export const FETCH_BOOKS_STOCKS_SUCCESS = 'book-search/books/FETCH_BOOKS_STOCKS_SUCCESS';
 export const FETCH_BOOKS_STOCKS_FAIL = 'book-search/books/FETCH_BOOKS_STOCKS_FAIL';
+export const CANCEL_FETCHING_BOOKS_STOCKS = 'book-search.books/CANCEL_FETCHING_BOOKS_STOCKS';
+export const CANCEL_FETCHING_BOOKS_STOCKS_DONE = 'book-search.books/CANCEL_FETCHING_BOOKS_STOCKS_DONE';

@@ -55,3 +55,15 @@ export function fetchBooksStocksSuccess(booksStocks) {
     }
   }
 }
+
+export function cancelFetchingBooksStocks() {
+  return {
+    type: types.CANCEL_FETCHING_BOOKS_STOCKS,
+  }
+}
+
+export function cancelFetchingBooksStocksDone() {
+  return {
+    type: types.CANCEL_FETCHING_BOOKS_STOCKS_DONE,
+  }
+}

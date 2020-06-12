@@ -47,14 +47,14 @@ const useStyles = makeStyles(theme => createStyles({
 }));
 
 function AppHeader(props) {
-  const { isBooksSearching, isBooksStocksSearching, history, runBookSearch } = props
+  const { isBooksSearching, history, runBookSearch } = props
   const textFieldElement = React.useRef(null);
   const classes = useStyles();
 
   const handleSearchClick = (event) => {
     event.preventDefault();
     const keyword = textFieldElement.current.value
-    if (keyword !== '' && !isBooksSearching && !isBooksStocksSearching) {
+    if (keyword !== '' && !isBooksSearching) {
       history.push('/books')
       runBookSearch(keyword)
     }
@@ -76,7 +76,7 @@ function AppHeader(props) {
       </Grid>
 
       <Grid container alignItems="stretch" item xs={2}>
-        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={(!isBooksSearching && !isBooksStocksSearching) ? classes.button : classes.buttonDisabled} >
+        <Button color='secondary' variant='contained' disabled={false} onClick={handleSearchClick} className={!isBooksSearching ? classes.button : classes.buttonDisabled} >
           <SearchIcon />
         </Button>
       </Grid>
