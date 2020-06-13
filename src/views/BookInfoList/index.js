@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import BookInfoList from './BookInfoList';
 import { booksOperations, booksSelectors } from '../../state/modules/books'
@@ -12,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
     isInitialState: state.books.isInitialState,
     error: state.books.error,
     shouldShowNextButton: booksSelectors.getShouldShowNextButton(state),
+    userBookLibraries: state.userBookLibraries,
   };
 }
 
@@ -26,4 +28,4 @@ const BookInfoListContainer = connect(
   mapDispatchToProps
 )(BookInfoList)
 
-export default BookInfoListContainer;
+export default withRouter(BookInfoListContainer);

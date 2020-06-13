@@ -29,10 +29,13 @@ const useStyles = makeStyles(theme => createStyles({
       display: 'block',
     }
   },
+  libraryRecomendationLink: {
+    paddingBottom: theme.spacing(2)
+  }
 }));
 
 function BookInfoList(props) {
-  const { bookItemsAndStocks, isBooksSearching, error, shouldShowNextButton, fetchBooks } = props;
+  const { bookItemsAndStocks, isBooksSearching, error, shouldShowNextButton, fetchBooks, userBookLibraries, history } = props;
   const classes = useStyles();
   const containerElement = useRef(null);
 
@@ -43,6 +46,22 @@ function BookInfoList(props) {
   if (!isBooksSearching && bookItemsAndStocks.length === 0) {
     return <Typography className={classes.errorText}>検索結果が0件です</Typography>
   }
+
+  const handleNewLibraryButtonClicked = (event) => {
+    history.push('libraries')
+  }
+
+  const libraryRecomendationLink = (
+    <Box>
+      <ListItem className={classes.libraryRecomendationLink}>
+        <Grid container direction="column">
+          <Typography variant="body1">お近くの図書館を登録すると図書館の在庫を一緒に検索できます。</Typography>
+          <Button color="secondary" variant="contained" onClick={handleNewLibraryButtonClicked} ><Typography variant="body1" >登録はこちらから</Typography></Button>
+        </Grid>
+      </ListItem>
+      <Divider />
+    </Box>
+  )
 
   const handleScroll = () => {
     const bottomPosition = containerElement.current.scrollTop + containerElement.current.clientHeight;
@@ -60,6 +79,7 @@ function BookInfoList(props) {
     <Grid container justify="center" alignItems="stretch" ref={containerElement} onScroll={handleScroll} className={classes.root} >
       <Grid container direction="column" justify="flex-start" alignItems="stretch" item xs={12} md={8}>
         <List>
+          {userBookLibraries.length === 0 && !isBooksSearching && libraryRecomendationLink}
           {bookItemsAndStocks.map(bookInfo => (
             <Box key={bookInfo.title + bookInfo.isbn}>
               <ListItem>
