@@ -20,6 +20,17 @@ jobs:
         with:
           name: build
           path: build
+      - name: Checkout blog repository
+        uses: actions/checkout@v2
+        with:
+          repository: horitaka/book-search-blog
+          token: ${{ secrets.MY_GITHUB_ACCESS_TOKEN }} # `GitHub_PAT` is a secret that contains your PAT
+          path: blog
+      - name: Upload blog files
+        uses: actions/upload-artifact@master
+        with:
+          name: blog
+          path: blog       
   deploy:
     name: Deploy
     needs: build
@@ -32,6 +43,11 @@ jobs:
         with:
           name: build
           path: build
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: blog
+          path: build/blog
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
