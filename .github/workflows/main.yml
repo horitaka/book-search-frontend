@@ -34,7 +34,9 @@ jobs:
           cd blog
           npm ci    
       - name: Build blog app
-        run: npm run build
+        run: |
+          cd blog
+          ./node_modules/.bin/gatsby build
       - name: Upload blog files
         uses: actions/upload-artifact@master
         with:
