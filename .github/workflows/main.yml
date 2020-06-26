@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - master
-  repository_dispatch:
-    types: 
-      - blog-updated
+  # repository_dispatch:
+  #   types: 
+  #     - blog-updated
 
 jobs:
   build:
@@ -23,25 +23,25 @@ jobs:
         with:
           name: build
           path: build
-      - name: Checkout blog repository
-        uses: actions/checkout@v2
-        with:
-          repository: horitaka/book-search-blog
-          token: ${{ secrets.MY_GITHUB_ACCESS_TOKEN }}
-          path: blog
-      - name: Install Dependencies
-        run: |
-          cd blog
-          npm ci    
-      - name: Build blog app
-        run: |
-          cd blog
-          ./node_modules/.bin/gatsby build
-      - name: Upload blog files
-        uses: actions/upload-artifact@master
-        with:
-          name: blog
-          path: blog/public       
+      # - name: Checkout blog repository
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: horitaka/book-search-blog
+      #     token: ${{ secrets.MY_GITHUB_ACCESS_TOKEN }}
+      #     path: blog
+      # - name: Install Dependencies
+      #   run: |
+      #     cd blog
+      #     npm ci    
+      # - name: Build blog app
+      #   run: |
+      #     cd blog
+      #     ./node_modules/.bin/gatsby build
+      # - name: Upload blog files
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: blog
+      #     path: blog/public       
   deploy:
     name: Deploy
     needs: build
@@ -54,11 +54,11 @@ jobs:
         with:
           name: build
           path: build
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: blog
-          path: build/blog
+      # - name: Download Artifact
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: blog
+      #     path: build/blog
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
