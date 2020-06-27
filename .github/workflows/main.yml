@@ -23,6 +23,7 @@ jobs:
         with:
           name: build
           path: build
+          
   build-blog:
     name: Build blog
     needs: build
