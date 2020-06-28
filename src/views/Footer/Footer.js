@@ -27,9 +27,15 @@ const Footer = (props) => {
     console.log('clicked')
   }
 
+  const blogLinkClicked = (event) => {
+    // history.push('/blog')
+    window.location.href = '/blog/index.html'
+  }
+
   return (
     <Grid container direction="row" justify="center" className={classes.root}>
       <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>このサイトについて</Link>
+      <Link component="button" color="inherit" onClick={blogLinkClicked} className={classes.link}>ブログ</Link>
       {/* <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>利用規約</Link> */}
       {/* <Link component="button" color="inherit" onClick={aboutLinkClicked} className={classes.link}>プライバシーポリシー</Link> */}
     </Grid>
