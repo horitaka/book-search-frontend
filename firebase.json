@@ -8,11 +8,47 @@
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css|png|jpg|svg)",
+        "source": "**/*",
         "headers": [
           {
-            "key": "Cache-Control",
-            "value": "max-age=2592000"
+            "key": "cache-control",
+            "value": "cache-control: public, max-age=0, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "blog/static/**",
+        "headers": [
+          {
+            "key": "cache-control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(css|js|png|jpg|svg)",
+        "headers": [
+          {
+            "key": "cache-control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "blog/sw.js",
+        "headers": [
+          {
+            "key": "cache-control",
+            "value": "cache-control: public, max-age=0, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "blog/page-data/**",
+        "headers": [
+          {
+            "key": "cache-control",
+            "value": "cache-control: public, max-age=0, must-revalidate"
           }
         ]
       }
